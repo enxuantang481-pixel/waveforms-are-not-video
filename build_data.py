@@ -84,7 +84,13 @@ def load(wid):
             rows = [r for r in csv.DictReader(open(p, encoding="utf-8")) if r["design"] == wid]
             # 复测没跑完（还没有进程内 libfst 的基准行）就先不用它
             if any(r["format"] == "fst-lz4+inproc" and r["verified"] == "True" for r in rows):
-                return src, p, rows
+                # results/idle_check/ 是空闲复测之后对个别格式的顺序重测（ISSUES 第 19 条），排在后面、覆盖前面的行
+                chk = RES / "idle_check" / f"{wid}.csv"
+                rel = str(p.relative_to(ROOT)).replace("\\", "/")
+                if src == "idle" and chk.exists():
+                    rows += [r for r in csv.DictReader(open(chk, encoding="utf-8")) if r["design"] == wid]
+                    rel += " + " + str(chk.relative_to(ROOT)).replace("\\", "/")
+                return src, rel, rows
     raise FileNotFoundError(wid)
 
 
@@ -105,7 +111,7 @@ def build():
         loads = [float(r["loadavg"]) for r in last.values() if r["loadavg"]]
         any_r = next(iter(last.values()))
         waves.append(dict(id=wid, design=design, zh=zh, en=en, T=int(any_r["T"]), B=int(any_r["B"]),
-                          source=src, csv=str(path.relative_to(ROOT)).replace("\\", "/"),
+                          source=src, csv=path,
                           fst_default_bytes=size_ref, ref_rsig_s=rs_ref, ref_rtime_s=rt_ref,
                           loadavg_min=min(loads), loadavg_max=max(loads),
                           when_first=min(r["when"] for r in last.values()), when_last=max(r["when"] for r in last.values())))

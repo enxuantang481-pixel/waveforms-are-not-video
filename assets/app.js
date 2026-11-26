@@ -213,14 +213,15 @@
     const sp = pq.map((r) => 1 / r.rtime_rel);
     $("#f3-fig").textContent = range(sp, (x) => x.toFixed(0)) + "×";
     const rs = pq.map((r) => r.rsig_rel);
-    const mixed = Math.min(...rs) < 1 && Math.max(...rs) > 1;
+    // 取一个信号是几毫秒量级，±20% 以内算打平，不说谁快
+    const band = (lo, hi) => pq.filter((r) => r.rsig_rel >= lo && r.rsig_rel < hi);
+    const parts = [[band(0, 0.8), "faster"], [band(0.8, 1.25), "about the same"], [band(1.25, Infinity), "slower"]]
+      .filter(([g]) => g.length)
+      .map(([g, word]) => `${word} on ${g.map((r) => waveById(r.w).en.replace(", ", " ").replace(" cycles", "")).join(", ")} (${range(g.map((r) => r.rsig_rel))}×)`);
     const vsSmall = pq.map((r) => r.size / FST_SMALL(r.w).size);
-    fill("f3-text",
-      `每个信号一列。取某一时刻的全部信号，比进程内 libfst 快 ${range(sp, (x) => x.toFixed(0))} 倍。取一个信号的全程是 FST 的 ${range(rs)} 倍` +
-      (mixed ? "，时快时慢，没有稳定优势。" : (Math.max(...rs) < 1 ? "，都更快。" : "，都更慢。")) +
-      `体积是 FST 默认档的 ${range(pq.map((r) => r.size_rel))} 倍、最小档的 ${range(vsSmall)} 倍；波形越长越闲，和最小档的差距越大。`,
-      `One column per signal. Reading all signals at one cycle is ${range(sp, (x) => x.toFixed(0))}× faster than in-process libfst. Reading one signal across all cycles takes ${range(rs)}× the FST time` +
-      (mixed ? ", sometimes faster, sometimes slower: no consistent advantage." : (Math.max(...rs) < 1 ? ", faster in every case." : ", slower in every case.")) +
+    fill("f3-text", "",
+      `One column per signal. Reading all signals at one cycle is ${range(sp, (x) => x.toFixed(0))}× faster than in-process libfst. Reading one signal across all cycles is ` +
+      parts.join("; ") + "." +
       ` Size is ${range(pq.map((r) => r.size_rel))}× default FST and ${range(vsSmall)}× the smallest FST; the gap to the smallest grows as the waveform gets longer and quieter.`);
     // 4. 视频唯一赢的一项
     const fv = ALL.map((w) => get(w, "ffv1-strip-8bpp")).filter(Boolean);
@@ -501,6 +502,8 @@
     if (pre) pre.textContent = D.idle_conditions || L("（空闲复测还没有结果）", "(no idle re-measurement results yet)");
     const nIdle = D.waves.filter((w) => w.source === "idle").length;
     setAll(".idle-count", `${nIdle} / ${D.waves.length}`);
+    const pq = ALL.map((w) => get(w, "parquet-wide-zstd19-rg65536")).filter(Boolean);
+    setAll(".pq-speed", range(pq.map((r) => 1 / r.rtime_rel), (x) => x.toFixed(0)) + "×");
     const pv = $("#provisional");
     if (pv) {
       const busy = D.waves.filter((w) => w.source !== "idle");
