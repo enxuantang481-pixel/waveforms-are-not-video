@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waveforms are not video</title>
+<meta name="description" content="Can digital simulation waveforms be stored smaller or read faster as video, as tables, or with plain compression, than in FST? Measurements on three open-source RISC-V cores.">
+<link rel="stylesheet" href="assets/style.css?v=6">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg width="26" height="16" viewBox="0 0 26 16" aria-hidden="true"><path d="M1 13H6V3H12V13H16V3H25" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Waveforms are not video
+    </a>
+    <nav class="nav">
+      <a href="#results">Results</a>
+      <a href="#explore">Explore</a>
+      <a href="#orientation">Table orientation</a>
+      <a href="method.html">Method</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Would simulation waveforms be smaller stored as video?</h1>
+      <p class="lede">
+        
+        No, and not by a small margin. A digital waveform is a huge black-and-white image in which most bits stay the same from one cycle to the next, which looks like a perfect job for a video codec. I measured it on three open-source RISC-V cores: <strong>video loses to FST on size everywhere</strong>, and does not even beat naive bit-packing plus zstd. It wins exactly one thing: jumping to a point in time.
+      </p>
+
+      <div class="twoview" id="twoview">
+        <div class="panel">
+          <h2><b>What an engineer sees</b>: a waveform viewer, cycles <span class="win-from"></span>–<span class="win-to"></span></h2>
+          <div class="viewer" id="viewer"></div>
+        </div>
+        <div class="panel">
+          <h2><b>What a video codec sees</b>: the same bits as one frame</h2>
+          <div class="pixels" id="pixels"><canvas aria-label="PicoRV32 bit matrix as an image"></canvas><div class="win"></div></div>
+          <p class="caption">512 cycles across, the first <span class="hero-bits"></span> bits down (of <span class="hero-total"></span> in the design); one pixel per bit. Drag or click the image and the viewer follows; arrow keys work too.</p>
+        </div>
+      </div>
+      <p class="caption">PicoRV32 running Dhrystone, simulated with Verilator, sampled once per cycle. Data from <code>sample/</code> in the repository.</p>
+    </div>
+  </section>
+
+  <section class="section" id="results">
+    <div class="wrap">
+      <h2>Four results</h2>
+      <p class="sub">Every number below is computed by the page from the raw measurements. Sizes are relative to the default FST file of the same waveform; read times are relative to in-process libfst reading that file. Five waveforms: the three originals plus two longer runs.</p>
+      <div class="findings" id="findings">
+        <article class="finding loss">
+          <h3>Video loses on size, everywhere</h3>
+          <div class="fig" id="f1-fig"></div>
+          <p class="figlabel">best video variant vs default FST (three original waveforms)</p>
+          <p id="f1-text"></p>
+        </article>
+        <article class="finding plain">
+          <h3>Plain bit-packing plus zstd beats default FST</h3>
+          <div class="fig" id="f2-fig"></div>
+          <p class="figlabel">bit-pack + zstd -19 vs default FST (five waveforms)</p>
+          <p id="f2-text"></p>
+        </article>
+        <article class="finding gain">
+          <h3>A wide Parquet table is only faster at one-cycle reads</h3>
+          <div class="fig" id="f3-fig"></div>
+          <p class="figlabel">speed-up over libfst, all signals at one cycle (five waveforms)</p>
+          <p id="f3-text"></p>
+        </article>
+        <article class="finding loss">
+          <h3>The one thing video wins: seeking</h3>
+          <div class="fig" id="f4-fig"></div>
+          <p class="figlabel">FFV1 strip, time to read one cycle (five waveforms)</p>
+          <p id="f4-text"></p>
+        </article>
+      </div>
+      <p class="note">Timing conditions are shown under each chart and on the <a href="method.html">method page</a>. Anything marked “pending” was measured while the machine was running other jobs; read only the order of magnitude.</p>
+    </div>
+  </section>
+
+  <section class="section" id="explore">
+    <div class="wrap">
+      <h2>Every format: size versus read time</h2>
+      <p class="sub">Each point is one way of storing the waveform. Both axes are logarithmic; the crossing lines mark default FST read by libfst, and lower-left is better. Hover, or tab to a point, for the numbers.</p>
+      <div class="controls">
+        <div><span class="ctl-label">Waveform</span><span class="seg" id="ctl-wave" role="group" aria-label="waveform"></span></div>
+        <div><span class="ctl-label">Read</span><span class="seg" id="ctl-read" role="group" aria-label="read type"></span></div>
+        <div><span class="ctl-label">Show</span><span class="chips" id="ctl-fam"></span></div>
+      </div>
+      <div class="chartcard" id="scatter-card">
+        <div class="chart" id="scatter"></div>
+        <div class="legend" id="legend"></div>
+        <div class="tip" id="tip" role="status" aria-live="polite"></div>
+      </div>
+      <div class="chart-foot">
+        <span class="status" id="scatter-status"></span>
+        <button class="linkbtn" id="table-toggle" type="button"></button>
+      </div>
+      <p class="caption" id="scatter-n"></p>
+      <div class="tablewrap" id="fulltable" hidden></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Key numbers</h2>
+      <p class="sub">Sizes relative to default FST, read times relative to in-process libfst. Below 1 means smaller or faster.</p>
+      <div class="tablewrap" id="keytable"></div>
+    </div>
+  </section>
+
+  <section class="section" id="orientation">
+    <div class="wrap">
+      <h2>Put time on the rows, signals on the columns</h2>
+      <p class="sub">Earlier work, vcd2df (arXiv 2505.06470), also stored waveforms as Parquet and found the files larger than VCD. The cause is orientation: it uses one column per time point. With the same content and the same compression, that orientation is <b class="orient-ratio"></b>× larger. A columnar format needs long columns to pay off.</p>
+      <div class="cols2" id="orient"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Try it on your own waveform</h2>
+      <div class="prose">
+        <p>The repository has a small command-line tool: give it a VCD or FST and it reports the size and both read times for several storage methods, each verified bit for bit. It runs locally and uploads nothing.</p>
+<pre><code>python -m wavebench.cli my_wave.vcd
+python -m wavebench.cli my_wave.fst --all --json out.json</code></pre>
+        <p>Limits: two-state waveforms only (no x or z), with evenly spaced sample times. Setup and usage on the <a href="method.html#cli">method page</a>.</p>
+        <p class="note">There is no in-browser “upload and measure”: reading FST, encoding FFV1 and writing Parquet would all need C libraries compiled for the browser, and timings measured there would not be comparable with native ones. It would be a demo, not a measurement.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Data: raw CSVs under <code>results/</code>, turned into <code>web/data/bench.js</code> by <code>web/build_data.py</code>. Code, raw data and full notes: <a href="https://github.com/enxuantang481-pixel/waveforms-are-not-video">GitHub repository</a> (MIT).</p>
+    <p>Design references: Anthropic's frontend-design skill (Apache-2.0) and Claude Code's dataviz guidance; see <a href="https://github.com/enxuantang481-pixel/waveforms-are-not-video/blob/main/web/DESIGN_NOTES.md">design notes</a>. No third-party code is used.</p>
+  </div>
+</footer>
+<script src="data/bench.js?v=6"></script>
+<script src="assets/app.js?v=6"></script>
+</body>
+</html>

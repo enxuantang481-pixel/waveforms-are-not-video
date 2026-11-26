@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Method: Waveforms are not video</title>
+<link rel="stylesheet" href="assets/style.css?v=6">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <svg width="26" height="16" viewBox="0 0 26 16" aria-hidden="true"><path d="M1 13H6V3H12V13H16V3H25" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      Waveforms are not video
+    </a>
+    <nav class="nav">
+      <a href="index.html#results">Results</a>
+      <a href="index.html#explore">Explore</a>
+      <a href="index.html#orientation">Table orientation</a>
+      <a href="method.html" aria-current="page">Method</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" style="padding-bottom:0">
+    <div class="wrap">
+      <h1>How it was measured, and what was not checked</h1>
+      <p class="lede">Where the numbers come from, the conditions they were measured under, and what they can and cannot support. Raw records are under <code>results/</code> in the repository.</p>
+      <p class="note" id="provisional" hidden></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h">Waveforms</h2>
+      <div class="prose">
+        <p>Three open-source RISC-V cores: PicoRV32 running its bundled Dhrystone, SERV running its bundled Zephyr hello image, and biRISC-V running a bare-metal program written for this project (sorting, CRC32, matrix multiply, a division loop; its 6 results match the same source compiled natively). All simulated with Verilator 5.020, dumped once per clock cycle after the rising edge, two-state with no x or z. The two extra waveforms are longer runs of SERV and biRISC-V.</p>
+      </div>
+      <div class="tablewrap" id="waves-meta"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h">What is measured for each format</h2>
+      <div class="cols2">
+        <div>
+          <h3>Size and correctness</h3>
+          <ul class="tight">
+            <li>One simulation writes both VCD and FST; pywellen reads them into a bit matrix. The VCD, the <code>vcd2fst</code> FST and the Verilator FST must give the identical matrix.</li>
+            <li>Every format is fully decoded after writing and compared <b>bit for bit, plus SHA-256</b>, against the original matrix. Anything that differs is discarded.</li>
+            <li>Home-made formats (bit-pack, video, tables) include the compressed signal-name and width table in their size.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>The two read timings</h3>
+          <ul class="tight">
+            <li><b>One signal</b>: one signal across all cycles. Five signals picked with a fixed seed.</li>
+            <li><b>One cycle</b>: all signals at one cycle. Five cycles picked with a fixed seed.</li>
+            <li>Each read includes opening the file and is checked against the matrix. Fast reads run 3 times per sample, about 15 in total; reads over 1 s run 3 times. Medians are reported.</li>
+            <li>The reference is GTKWave's libfst reading the default FST <b>in-process</b> (via ctypes), with no subprocess or text parsing.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h">Measurement conditions</h2>
+      <div class="prose">
+        <p>Laptop, Intel Core Ultra 9 185H, WSL2 Ubuntu 24.04 with about 7.5 GB of memory and 22 logical cores. Warm cache (files are read right after they are written).</p>
+        <p><b>Rounds one and two (2026-11-25 to 26)</b>: the machine was running two other projects at the same time. The load at the start of each row is in the <code>loadavg</code> column and went above 8. Read these timings for order of magnitude only.</p>
+        <p><b>Idle re-measurement (2026-11-26)</b>: the other two projects were archived, and the user turned turbo boost off (Windows reports both current and maximum clock as 2300 MHz, the base clock). The five waveforms ran one after another, never in parallel; the three original waveforms were re-simulated and their bit matrices matched round one by SHA-256. During the run I was still building this site on the same machine (editing files, occasionally opening a browser preview); load is still logged per row. Waveforms re-measured so far: <b class="idle-count"></b>. Every waveform on the site is labelled with the round its timings come from.</p>
+      </div>
+      <details>
+        <summary>Conditions logged during the re-run (<code>results/idle/conditions.log</code>)</summary>
+        <pre id="conditions"></pre>
+      </details>
+      <p class="caption">Tool versions: Verilator 5.020, GTKWave 3.3.116 (<code>vcd2fst</code> and <code>fstapi.c</code>), FFmpeg (conda-forge, with FFV1 and libx264), PyAV 19.0.2, pyarrow 26.0.1, DuckDB 2.0.1, pywellen 0.25.7, zstd 1.5.7. Full lists in <code>env/</code>.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h">What this supports, and what it does not</h2>
+      <div class="cols2">
+        <div>
+          <h3>Supported (within the range tested)</h3>
+          <ul class="tight">
+            <li>A dozen video layouts are all clearly larger than FST and much slower for one-signal reads, consistently across three designs and five lengths.</li>
+            <li>For the same content, Parquet with one column per signal is about 10× smaller than one column per time point; both were verified bit for bit.</li>
+            <li>A wide Parquet table reads all signals at one cycle faster than libfst, by 4× or more on all five waveforms.</li>
+            <li>Every size comparison is between bit-identical contents.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Not supported</h3>
+          <ul class="tight">
+            <li><b>Only three small RISC-V cores</b> (2,381 to 9,728 bits). This does not extend to large SoCs, memory-heavy designs or gate-level netlists.</li>
+            <li><b>At most 2.6 million cycles</b>, and that waveform goes quiet later on. Waveforms of tens of millions of cycles or gigabytes were not tested.</li>
+            <li><b>Two-state only</b>, no x or z.</li>
+            <li><b>One clock, one sample per cycle.</b> Multiple clock domains, glitches within a cycle and real timestamps are out of scope, and those are exactly where change-stream formats like FST shine.</li>
+            <li><b>FST was not tuned</b>: one way of reading a cycle with libfst, default block size. The 4–12× figure may be on the high side.</li>
+            <li><b>It does not show that a wide table is a good waveform format</b>: no hierarchy, no change stream, and writing requires expanding the whole waveform first.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cli">
+    <div class="wrap">
+      <h2 class="h">Command-line tool</h2>
+      <div class="prose">
+        <p>Run the same comparison on your own waveform. It reads a VCD or FST, writes several formats, verifies each bit for bit, and times both reads. Everything runs locally.</p>
+<pre><code># in WSL / Linux, after setting up the environment (see README)
+source scripts/common.sh
+python -m wavebench.cli my_wave.vcd                 # default: 5 key formats
+python -m wavebench.cli my_wave.fst --all           # adds VCD, x264, long tables, DuckDB…
+python -m wavebench.cli my_wave.vcd --json out.json # save results</code></pre>
+        <ul class="tight">
+          <li><b>Two-state only</b>: it stops with a message on x or z.</li>
+          <li><b>Sample times must be evenly spaced</b> (for example once per cycle, timestamps 0, 10, 20…). Irregular waveforms are rejected rather than silently resampled.</li>
+          <li>Needs <code>vcd2fst</code> / <code>fst2vcd</code> (GTKWave), FFmpeg, pyarrow, pywellen. Intermediate files go to a temporary directory and are deleted afterwards (<code>--keep</code> keeps them).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h">Raw data</h2>
+      <ul class="tight prose">
+        <li><code>results/&lt;waveform&gt;.csv</code>: rounds one and two, one row per format with the encode command, size, verification, medians and minima of both reads, load and timestamp.</li>
+        <li><code>results/idle/</code>: the idle re-measurement, same columns, plus the conditions log and per-design run logs.</li>
+        <li><code>results/vcd2df_*.csv</code>: the table-orientation comparison.</li>
+        <li><code>RESULTS.md</code>、<code>ISSUES.md</code>: the full write-up and the 18 issues hit along the way.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Numbers are generated from <code>results/</code> by <code>web/build_data.py</code>. Code and raw data: <a href="https://github.com/enxuantang481-pixel/waveforms-are-not-video">GitHub repository</a> (MIT).</p>
+  </div>
+</footer>
+<script src="data/bench.js?v=6"></script>
+<script src="assets/app.js?v=6"></script>
+</body>
+</html>
