@@ -1,0 +1,27 @@
+## start  2026-11-26T10:52:17+01:00
+loadavg: 0.08 0.16 0.12 1/445 37407
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5585 MB available
+disk(WSL): 317M in ~/.cache/wavebench
+picorv32 matrix sha256 before=82007fb0db6b75193353c7086f99fe90ea6a62111b0c50c8bb3386dbe8a52a63 after=82007fb0db6b75193353c7086f99fe90ea6a62111b0c50c8bb3386dbe8a52a63 SAME
+## picorv32 all  2026-11-26T10:52:53+01:00
+loadavg: 0.49 0.25 0.15 1/449 37683
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5581 MB available
+disk(WSL): 452M in ~/.cache/wavebench
+## picorv32 inproc  2026-11-26T11:19:23+01:00
+loadavg: 3.25 3.52 2.87 3/488 53299
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 4449 MB available
+disk(WSL): 1.4G in ~/.cache/wavebench
+## picorv32 done  2026-11-26T11:20:03+01:00
+loadavg: 3.47 3.54 2.90 4/536 53434
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 3943 MB available
+disk(WSL): 317M in ~/.cache/wavebench
+serv matrix sha256 before=f1a85d1869eefbdde6dfb0c5ecdf5693125ed2fe0463bbb91d1339c910a376b9 after=f1a85d1869eefbdde6dfb0c5ecdf5693125ed2fe0463bbb91d1339c910a376b9 SAME
+## serv all  2026-11-26T11:21:07+01:00
+loadavg: 3.27 3.47 2.93 3/491 53682
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 4445 MB available
+disk(WSL): 394M in ~/.cache/wavebench

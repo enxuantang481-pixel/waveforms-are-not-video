@@ -1,0 +1,92 @@
+[order] random: 0.0s
+[order] toggle: 1.9s
+[order] cluster_toggle: 8.9s
+[order] cluster_value: 18.7s
+ffv1-strip-1bpp@random                     size=   51042784 ok=True enc=6.6319 rsig=1.43018 rtime=0.02661 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 108, in run_one
+    dec = f.decode_all(m, path)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 310, in decode_all
+    return _canon(pack_sm_from_tm_chunks(chunks(), m.T, m.B), self.order)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/common.py", line 90, in pack_sm_from_tm_chunks
+    for ch in chunks:
+              ^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 309, in chunks
+    yield self._to_bits_strip(a, m, n, min(STRIP_W, m.T - k * STRIP_W))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 282, in _to_bits_strip
+    raise ValueError("解码出 0/255 以外的像素值，不是无损")
+ValueError: 解码出 0/255 以外的像素值，不是无损
+x264-medium-strip-1bpp@random              size=   31308065 ok=False enc=27.634 rsig= rtime= 失败: ValueError('解码出 0/255 以外的像素值，不是无损')
+ffv1-frame-1bpp@random                     size=   97247321 ok=True enc=36.268 rsig=11.8602 rtime=0.04024 
+x264-medium-frame-1bpp@random              size=  140033701 ok=True enc=52.040 rsig=15.6590 rtime=0.04548 
+bitpack-sm.zst19@random                    size=    4013672 ok=True enc=10.429 rsig=0.05984 rtime=0.05669 
+bitpack-tm.zst19@random                    size=    7257719 ok=True enc=95.190 rsig=0.18839 rtime=0.16093 
+ffv1-strip-1bpp@toggle                     size=   25523897 ok=True enc=7.9604 rsig=0.80014 rtime=0.01734 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 108, in run_one
+    dec = f.decode_all(m, path)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 310, in decode_all
+    return _canon(pack_sm_from_tm_chunks(chunks(), m.T, m.B), self.order)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/common.py", line 90, in pack_sm_from_tm_chunks
+    for ch in chunks:
+              ^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 309, in chunks
+    yield self._to_bits_strip(a, m, n, min(STRIP_W, m.T - k * STRIP_W))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 282, in _to_bits_strip
+    raise ValueError("解码出 0/255 以外的像素值，不是无损")
+ValueError: 解码出 0/255 以外的像素值，不是无损
+x264-medium-strip-1bpp@toggle              size=   25899945 ok=False enc=11.210 rsig= rtime= 失败: ValueError('解码出 0/255 以外的像素值，不是无损')
+ffv1-frame-1bpp@toggle                     size=   60661999 ok=True enc=34.329 rsig=13.5487 rtime=0.04706 
+x264-medium-frame-1bpp@toggle              size=  109293429 ok=True enc=58.768 rsig=16.3648 rtime=0.02861 
+bitpack-sm.zst19@toggle                    size=    2877143 ok=True enc=8.2960 rsig=0.03991 rtime=0.03435 
+bitpack-tm.zst19@toggle                    size=    4835464 ok=True enc=56.800 rsig=0.09419 rtime=0.07619 
+ffv1-strip-1bpp@cluster_toggle             size=   20354735 ok=True enc=8.0199 rsig=0.68066 rtime=0.01710 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 108, in run_one
+    dec = f.decode_all(m, path)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 310, in decode_all
+    return _canon(pack_sm_from_tm_chunks(chunks(), m.T, m.B), self.order)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/common.py", line 90, in pack_sm_from_tm_chunks
+    for ch in chunks:
+              ^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 309, in chunks
+    yield self._to_bits_strip(a, m, n, min(STRIP_W, m.T - k * STRIP_W))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 282, in _to_bits_strip
+    raise ValueError("解码出 0/255 以外的像素值，不是无损")
+ValueError: 解码出 0/255 以外的像素值，不是无损
+x264-medium-strip-1bpp@cluster_toggle      size=   21619632 ok=False enc=10.957 rsig= rtime= 失败: ValueError('解码出 0/255 以外的像素值，不是无损')
+ffv1-frame-1bpp@cluster_toggle             size=   55969619 ok=True enc=32.250 rsig=10.2148 rtime=0.02726 
+x264-medium-frame-1bpp@cluster_toggle      size=  102383383 ok=True enc=49.622 rsig=18.4194 rtime=0.03162 
+bitpack-sm.zst19@cluster_toggle            size=    2840197 ok=True enc=8.1208 rsig=0.03320 rtime=0.03530 
+bitpack-tm.zst19@cluster_toggle            size=    3891837 ok=True enc=45.764 rsig=0.07574 rtime=0.05701 
+ffv1-strip-1bpp@cluster_value              size=   14213401 ok=True enc=7.6863 rsig=0.51664 rtime=0.01458 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 108, in run_one
+    dec = f.decode_all(m, path)
+          ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 310, in decode_all
+    return _canon(pack_sm_from_tm_chunks(chunks(), m.T, m.B), self.order)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/common.py", line 90, in pack_sm_from_tm_chunks
+    for ch in chunks:
+              ^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 309, in chunks
+    yield self._to_bits_strip(a, m, n, min(STRIP_W, m.T - k * STRIP_W))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 282, in _to_bits_strip
+    raise ValueError("解码出 0/255 以外的像素值，不是无损")
+ValueError: 解码出 0/255 以外的像素值，不是无损
+x264-medium-strip-1bpp@cluster_value       size=   21571717 ok=False enc=9.8375 rsig= rtime= 失败: ValueError('解码出 0/255 以外的像素值，不是无损')
+ffv1-frame-1bpp@cluster_value              size=   38880819 ok=True enc=30.037 rsig=11.1035 rtime=0.03532 
+x264-medium-frame-1bpp@cluster_value       size=   62079515 ok=True enc=53.871 rsig=11.7893 rtime=0.00976 
+bitpack-sm.zst19@cluster_value             size=    2849275 ok=True enc=7.7834 rsig=0.03745 rtime=0.03720 
+bitpack-tm.zst19@cluster_value             size=    4029144 ok=True enc=51.443 rsig=0.08077 rtime=0.05896 

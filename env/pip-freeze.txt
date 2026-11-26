@@ -1,0 +1,22 @@
+av==19.0.2
+contourpy==1.4.0
+cycler==0.12.1
+duckdb==2.0.1
+fonttools==4.68.0
+kiwisolver==1.5.1
+matplotlib==3.11.2
+numpy==2.5.5
+packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_hc364b38_1795582404/work
+pandas==3.1.1
+pillow==13.0.0
+pyarrow==26.0.1
+pyparsing==3.3.3
+python-dateutil==4.0.0
+pywellen==0.25.7
+scipy==1.18.1
+setuptools==84.2.1
+six==1.17.0
+tzdata==2026.6
+vcd2df==1.0
+wheel==0.48.0
+zstandard==0.25.0

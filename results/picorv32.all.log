@@ -1,0 +1,31 @@
+vcd                                        size=  141827227 ok=True enc= rsig=0.18327 rtime=0.37303 由仿真器直接写出，不单独计编码时间；
+vcd.zst3                                   size=    8199672 ok=True enc=0.2994 rsig=0.38933 rtime=0.88204 
+vcd.zst19                                  size=    2068676 ok=True enc=200.70 rsig=0.45406 rtime=0.65039 
+fst-verilator                              size=    1688193 ok=True enc= rsig=0.02224 rtime=1.45918 由仿真器直接写出，不单独计编码时间；
+fst-lz4                                    size=    1688135 ok=True enc=2.8130 rsig=0.06904 rtime=1.67169 
+fst-fastlz                                 size=    1699014 ok=True enc=2.4278 rsig=0.02554 rtime=1.45721 
+fst-zlib                                   size=    1197425 ok=True enc=2.6695 rsig=0.02320 rtime=1.44652 
+fst-lz4-c                                  size=     566958 ok=True enc=2.5748 rsig=0.03272 rtime=1.42672 
+fst-zlib-c                                 size=     477741 ok=True enc=2.6356 rsig=0.04546 rtime=1.59424 
+bitpack-sm.zst19                           size=     693914 ok=True enc=5.8312 rsig=0.08959 rtime=0.10043 
+bitpack-tm.zst19                           size=    1290863 ok=True enc=149.25 rsig=0.20909 rtime=0.16452 
+bitpack-sm.zst3                            size=    1014386 ok=True enc=0.3447 rsig=0.27437 rtime=0.09253 
+ffv1-frame-1bpp                            size=   99233908 ok=True enc=56.432 rsig=23.0884 rtime=0.08248 
+ffv1-frame-8bpp                            size=  122260223 ok=True enc=22.228 rsig=28.4414 rtime=0.10097 
+ffv1-strip-1bpp                            size=   24821599 ok=True enc=12.239 rsig=0.43949 rtime=0.00734 
+ffv1-strip-8bpp                            size=   23287007 ok=True enc=4.0665 rsig=0.19822 rtime=0.00792 
+ffv1_coder1_context1-strip-1bpp            size=   14502897 ok=True enc=9.8765 rsig=1.75341 rtime=0.01842 
+x264-ultrafast-frame-1bpp                  size=  113591248 ok=True enc=58.339 rsig=51.8058 rtime=0.01253 
+x264-medium-frame-1bpp                     size=   67688214 ok=True enc=100.44 rsig=42.2971 rtime=0.01200 
+x264-medium-frame-8bpp                     size=   24332234 ok=True enc=47.662 rsig=50.7328 rtime=0.00682 
+x264-ultrafast-strip-1bpp                  size=   78374956 ok=True enc=12.934 rsig=0.71433 rtime=0.64148 
+x264-medium-strip-1bpp                     size=   18739907 ok=True enc=13.497 rsig=1.08213 rtime=1.26967 
+x264-medium-strip-8bpp                     size=    6159671 ok=True enc=8.1713 rsig=0.45401 rtime=0.32129 
+x264-medium_g32-frame-1bpp                 size=   73606545 ok=True enc=83.031 rsig=35.4031 rtime=0.00603 
+parquet-wide-zstd3-rg65536                 size=    3448160 ok=True enc=2.3641 rsig=0.00674 rtime=0.01691 
+parquet-wide-zstd19-rg65536                size=    2859992 ok=True enc=6.0139 rsig=0.00788 rtime=0.02032 
+parquet-wide-zstd3-rg4096                  size=    6865730 ok=True enc=2.5728 rsig=0.02680 rtime=0.02118 
+parquet-long-zstd3-rg65536                 size=   25559614 ok=True enc=2.1890 rsig=0.01755 rtime=0.04694 
+parquet-long-zstd19-rg65536                size=   17129570 ok=True enc=12.853 rsig=0.01639 rtime=0.06405 
+duckdb-wide                                size=   20462200 ok=True enc=3.3084 rsig=0.05038 rtime=0.05821 
+duckdb-long                                size=   16530040 ok=True enc=1.6834 rsig=0.06003 rtime=0.05308 

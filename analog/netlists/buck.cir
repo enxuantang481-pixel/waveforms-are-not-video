@@ -1,0 +1,13 @@
+* 开环降压变换器，理想开关加续流二极管。自己写的网表，只用内置模型。
+.model sw sw vt=0.5 vh=0.1 ron=0.05 roff=1meg
+.model dd d is=1e-12 rs=0.02
+vin in 0 12
+vg g 0 pulse(0 1 0 5n 5n 1.6u 4u)
+s1 in x g 0 sw
+d1 0 x dd
+l1 x out 22u
+c1 out 0 47u
+rl out 0 5
+.options interp
+.tran 4n 1.2m
+.end

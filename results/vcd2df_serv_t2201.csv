@@ -1,0 +1,10 @@
+design,T,B,format,size_bytes,verified,note
+serv_t2201,2201,2331,vcd,683549,,
+serv_t2201,2201,2331,fst-lz4,63693,,
+serv_t2201,2201,2331,fst-zlib-c,32211,,
+serv_t2201,2201,2331,bitpack-sm.zst19,18449,,含信号表
+serv_t2201,2201,2331,parquet 一列一个信号 (zstd),113331,True,2201 行 x 221 列；按位宽选整数类型；含信号表
+serv_t2201,2201,2331,parquet 一列一个信号 (snappy),131465,True,2201 行 x 221 列；按位宽选整数类型；含信号表
+serv_t2201,2201,2331,parquet 一列一个时间点 (zstd),1178036,True,220 行 x 2201 列；uint64；写入 0.2 秒；含信号表
+serv_t2201,2201,2331,parquet 一列一个时间点 (snappy),1278117,True,220 行 x 2201 列；uint64；写入 0.1 秒；含信号表
+serv_t2201,2201,2331,vcd2df 1.0 原包,,不适用,运行失败：OverflowError('Python int too large to convert to C long')

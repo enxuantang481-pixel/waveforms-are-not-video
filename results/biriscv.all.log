@@ -1,0 +1,80 @@
+vcd                                        size=  342886977 ok=True enc= rsig=0.49103 rtime=1.15245 由仿真器直接写出，不单独计编码时间；
+vcd.zst3                                   size=    8452991 ok=True enc=0.8289 rsig=1.25830 rtime=1.92773 
+vcd.zst19                                  size=    3878240 ok=True enc=342.56 rsig=1.23454 rtime=2.36438 
+fst-verilator                              size=    5138564 ok=True enc= rsig=0.00849 rtime=2.49822 由仿真器直接写出，不单独计编码时间；
+fst-lz4                                    size=    5138258 ok=True enc=8.1102 rsig=0.00998 rtime=2.91149 
+fst-fastlz                                 size=    4995116 ok=True enc=7.9235 rsig=0.00997 rtime=3.00693 
+fst-zlib                                   size=    3474872 ok=True enc=8.2953 rsig=0.01171 rtime=2.82815 
+fst-lz4-c                                  size=    2962825 ok=True enc=9.1999 rsig=0.04772 rtime=2.61708 
+fst-zlib-c                                 size=    2803510 ok=True enc=8.5853 rsig=0.03840 rtime=3.22544 
+bitpack-sm.zst19                           size=    3322517 ok=True enc=12.603 rsig=0.11984 rtime=0.13395 
+bitpack-tm.zst19                           size=    3350485 ok=True enc=155.75 rsig=0.19964 rtime=0.14406 
+bitpack-sm.zst3                            size=    4458940 ok=True enc=0.3398 rsig=0.13111 rtime=0.12270 
+ffv1-frame-1bpp                            size=   70962057 ok=True enc=38.799 rsig=13.3527 rtime=0.06068 
+ffv1-frame-8bpp                            size=   85941107 ok=True enc=41.566 rsig=14.8482 rtime=0.04176 
+ffv1-strip-1bpp                            size=   28418206 ok=True enc=11.509 rsig=1.32933 rtime=0.02600 
+ffv1-strip-8bpp                            size=   30281029 ok=True enc=6.9799 rsig=0.28137 rtime=0.01468 
+ffv1_coder1_context1-strip-1bpp            size=   18019461 ok=True enc=9.9786 rsig=3.42513 rtime=0.04726 
+x264-ultrafast-frame-1bpp                  size=  228911406 ok=True enc=34.578 rsig=22.0687 rtime=0.01436 
+x264-medium-frame-1bpp                     size=  104935763 ok=True enc=68.614 rsig=13.8740 rtime=0.02479 
+x264-medium-frame-8bpp                     size=   34647972 ok=True enc=26.320 rsig=13.1255 rtime=0.00862 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 107, in run_one
+    # 逐位校验
+          ^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 310, in decode_all
+    return _canon(pack_sm_from_tm_chunks(chunks(), m.T, m.B), self.order)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/common.py", line 90, in pack_sm_from_tm_chunks
+    for ch in chunks:
+              ^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 309, in chunks
+    yield self._to_bits_strip(a, m, n, min(STRIP_W, m.T - k * STRIP_W))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 282, in _to_bits_strip
+    raise ValueError("解码出 0/255 以外的像素值，不是无损")
+ValueError: 解码出 0/255 以外的像素值，不是无损
+x264-ultrafast-strip-1bpp                  size=   87887970 ok=False enc=9.8053 rsig= rtime= 失败: ValueError('解码出 0/255 以外的像素值，不是无损')
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 107, in run_one
+    # 逐位校验
+          ^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 310, in decode_all
+    return _canon(pack_sm_from_tm_chunks(chunks(), m.T, m.B), self.order)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/common.py", line 90, in pack_sm_from_tm_chunks
+    for ch in chunks:
+              ^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 309, in chunks
+    yield self._to_bits_strip(a, m, n, min(STRIP_W, m.T - k * STRIP_W))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 282, in _to_bits_strip
+    raise ValueError("解码出 0/255 以外的像素值，不是无损")
+ValueError: 解码出 0/255 以外的像素值，不是无损
+x264-medium-strip-1bpp                     size=   28056128 ok=False enc=12.891 rsig= rtime= 失败: ValueError('解码出 0/255 以外的像素值，不是无损')
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in run_one
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 74, in _adaptive
+    t0 = time.perf_counter()
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in <lambda>
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 1806336 into shape (1176,1,1024)
+x264-medium-strip-8bpp                     size=    9222109 ok=True enc=5.9594 rsig= rtime= 失败: ValueError('cannot reshape array of size 1806336 into shape (1176,1,1024)')
+x264-medium_g32-frame-1bpp                 size=  109668674 ok=True enc=46.596 rsig=13.1049 rtime=0.00781 
+parquet-wide-zstd3-rg65536                 size=    4949105 ok=True enc=1.3813 rsig=0.01210 rtime=0.04388 
+parquet-wide-zstd19-rg65536                size=    4131946 ok=True enc=7.9275 rsig=0.00902 rtime=0.03673 
+parquet-wide-zstd3-rg4096                  size=    6068869 ok=True enc=1.5908 rsig=0.01833 rtime=0.05221 
+parquet-long-zstd3-rg65536                 size=   40285581 ok=True enc=2.2175 rsig=0.01463 rtime=0.08613 
+parquet-long-zstd19-rg65536                size=   36067514 ok=True enc=16.518 rsig=0.01237 rtime=0.08343 
+duckdb-wide                                size=   33575965 ok=True enc=2.6517 rsig=0.05381 rtime=0.08238 
+duckdb-long                                size=   30430237 ok=True enc=1.4048 rsig=0.05476 rtime=0.08341 

@@ -1,0 +1,96 @@
+[order] random: 0.0s
+[order] toggle: 0.8s
+[order] cluster_toggle: 1.9s
+[order] cluster_value: 3.1s
+ffv1-strip-1bpp@random                     size=   42654480 ok=True enc=7.7182 rsig=1.70300 rtime=0.01899 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in run_one
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 75, in _adaptive
+    r = fn(args_list[0])
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in <lambda>
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 5569536 into shape (3626,1,1024)
+x264-medium-strip-1bpp@random              size=   13742660 ok=True enc=26.265 rsig= rtime= 失败: ValueError('cannot reshape array of size 5569536 into shape (3626,1,1024)')
+ffv1-frame-1bpp@random                     size=  130551593 ok=True enc=85.454 rsig=33.3353 rtime=0.08269 
+x264-medium-frame-1bpp@random              size=   82246367 ok=True enc=68.685 rsig=43.3611 rtime=0.01790 
+bitpack-sm.zst19@random                    size=     913152 ok=True enc=7.2057 rsig=0.08967 rtime=0.08820 
+bitpack-tm.zst19@random                    size=    3310804 ok=True enc=145.11 rsig=0.23438 rtime=0.22241 
+ffv1-strip-1bpp@toggle                     size=   23417481 ok=True enc=8.8040 rsig=0.69939 rtime=0.01055 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in run_one
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 75, in _adaptive
+    r = fn(args_list[0])
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in <lambda>
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 5569536 into shape (3626,1,1024)
+x264-medium-strip-1bpp@toggle              size=   28337854 ok=True enc=10.316 rsig= rtime= 失败: ValueError('cannot reshape array of size 5569536 into shape (3626,1,1024)')
+ffv1-frame-1bpp@toggle                     size=   91490421 ok=True enc=78.595 rsig=30.4455 rtime=0.08975 
+x264-medium-frame-1bpp@toggle              size=   71830235 ok=True enc=74.685 rsig=35.7164 rtime=0.01496 
+bitpack-sm.zst19@toggle                    size=     660086 ok=True enc=5.9316 rsig=0.10149 rtime=0.08533 
+bitpack-tm.zst19@toggle                    size=    1594575 ok=True enc=62.315 rsig=0.16985 rtime=0.14479 
+ffv1-strip-1bpp@cluster_toggle             size=   20126597 ok=True enc=10.579 rsig=0.60297 rtime=0.01084 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in run_one
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 75, in _adaptive
+    r = fn(args_list[0])
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in <lambda>
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 5569536 into shape (3626,1,1024)
+x264-medium-strip-1bpp@cluster_toggle      size=   23244358 ok=True enc=9.5483 rsig= rtime= 失败: ValueError('cannot reshape array of size 5569536 into shape (3626,1,1024)')
+ffv1-frame-1bpp@cluster_toggle             size=   84069686 ok=True enc=61.344 rsig=24.5686 rtime=0.07719 
+x264-medium-frame-1bpp@cluster_toggle      size=   71570019 ok=True enc=64.810 rsig=31.1020 rtime=0.01293 
+bitpack-sm.zst19@cluster_toggle            size=     676581 ok=True enc=4.5591 rsig=0.07325 rtime=0.07116 
+bitpack-tm.zst19@cluster_toggle            size=    2155743 ok=True enc=96.297 rsig=0.14741 rtime=0.12533 
+ffv1-strip-1bpp@cluster_value              size=   15073018 ok=True enc=7.8078 rsig=0.41805 rtime=0.01014 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in run_one
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 75, in _adaptive
+    r = fn(args_list[0])
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 122, in <lambda>
+    ts = _adaptive(lambda i: f.read_signal(m, path, i), sigs, chk_s)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 5569536 into shape (3626,1,1024)
+x264-medium-strip-1bpp@cluster_value       size=   23263801 ok=True enc=10.072 rsig= rtime= 失败: ValueError('cannot reshape array of size 5569536 into shape (3626,1,1024)')
+ffv1-frame-1bpp@cluster_value              size=   68432606 ok=True enc=59.512 rsig=26.1844 rtime=0.07902 
+x264-medium-frame-1bpp@cluster_value       size=   63063477 ok=True enc=76.619 rsig=31.2280 rtime=0.01080 
+bitpack-sm.zst19@cluster_value             size=     647086 ok=True enc=4.6746 rsig=0.05371 rtime=0.05607 
+bitpack-tm.zst19@cluster_value             size=    2549639 ok=True enc=89.546 rsig=0.12502 rtime=0.11253 

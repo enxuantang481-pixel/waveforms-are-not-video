@@ -1,0 +1,25 @@
+[sim_main] cycles=262144
+sim_vcd wall=0.31s maxrss=4576KB
+[sim_main] cycles=262144
+sim_fst wall=1.07s maxrss=92048KB
+fst_lz4 wall=1.02s
+fst_fastlz wall=1.07s
+fst_zlib wall=1.29s
+fst_lz4_c wall=1.13s
+fst_zlib_c wall=1.24s
+total 165644
+-rw-r--r-- 1 user user 78020736 Nov 25 16:30 bits_sm.npy
+-rw-r--r-- 1 user user        7 Nov 26 11:20 cycles.txt
+-rw-r--r-- 1 user user     1091 Nov 25 16:30 matrix_stats.json
+-rw-r--r-- 1 user user    44076 Nov 25 16:30 signals.json
+-rw-r--r-- 1 user user  2263931 Nov 26 11:20 wave.fastlz.fst
+-rw-r--r-- 1 user user  2601604 Nov 26 11:20 wave.lz4.fst
+-rw-r--r-- 1 user user  1290497 Nov 26 11:20 wave.lz4c.fst
+-rw-r--r-- 1 user user 80650108 Nov 26 11:20 wave.vcd
+-rw-r--r-- 1 user user  2601820 Nov 26 11:20 wave.verilator.fst
+-rw-r--r-- 1 user user  1464394 Nov 26 11:20 wave.zlib.fst
+-rw-r--r-- 1 user user   651737 Nov 26 11:20 wave.zlibc.fst
+{'file': '~/.cache/wavebench/data/serv/wave.vcd', 'format': 'VCD', 't_open_s': 0.004279138003767002, 't_total_s': 17.80511143500189, 'n_vars': 834, 'n_signals': 223, 'n_changes': 5572797, 'sha256': 'a09d4deff189af9cfd296b5521c1beed5169e8cea4fd3fd98cae9da692da9f65', 'T': 262144, 'B': 2381} skipped: 0
+{'file': '~/.cache/wavebench/data/serv/wave.lz4.fst', 'format': 'FST', 't_open_s': 0.0025258949972339906, 't_total_s': 17.299557047001144, 'n_vars': 834, 'n_signals': 223, 'n_changes': 5572797, 'sha256': 'a09d4deff189af9cfd296b5521c1beed5169e8cea4fd3fd98cae9da692da9f65', 'T': 262144, 'B': 2381} skipped: 0
+{'file': '~/.cache/wavebench/data/serv/wave.verilator.fst', 'format': 'FST', 't_open_s': 0.0019900360057363287, 't_total_s': 17.11790275200474, 'n_vars': 834, 'n_signals': 223, 'n_changes': 5572797, 'sha256': 'a09d4deff189af9cfd296b5521c1beed5169e8cea4fd3fd98cae9da692da9f65', 'T': 262144, 'B': 2381} skipped: 0
+OK serv: T=262144 B=2381 信号=223 比特翻转总数=13669890 全程不变的比特=1706 sha=a09d4deff189af9c

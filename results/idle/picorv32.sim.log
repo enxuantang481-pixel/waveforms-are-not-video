@@ -1,0 +1,26 @@
+/usr/lib/gcc/riscv64-unknown-elf/13.2.0/../../../riscv64-unknown-elf/bin/ld: warning: dhry.elf has a LOAD segment with RWX permissions
+[sim_main] cycles=200435
+sim_vcd wall=0.33s maxrss=4752KB
+[sim_main] cycles=200435
+sim_fst wall=1.43s maxrss=139920KB
+fst_lz4 wall=1.65s
+fst_fastlz wall=1.63s
+fst_zlib wall=1.89s
+fst_lz4_c wall=1.68s
+fst_zlib_c wall=1.88s
+total 234392
+-rw-r--r-- 1 user user  90824503 Nov 25 16:08 bits_sm.npy
+-rw-r--r-- 1 user user         7 Nov 26 10:52 cycles.txt
+-rw-r--r-- 1 user user      1081 Nov 25 16:08 matrix_stats.json
+-rw-r--r-- 1 user user     24159 Nov 25 16:08 signals.json
+-rw-r--r-- 1 user user   1699014 Nov 26 10:52 wave.fastlz.fst
+-rw-r--r-- 1 user user   1688135 Nov 26 10:52 wave.lz4.fst
+-rw-r--r-- 1 user user    566957 Nov 26 10:52 wave.lz4c.fst
+-rw-r--r-- 1 user user 141827227 Nov 26 10:52 wave.vcd
+-rw-r--r-- 1 user user   1688193 Nov 26 10:52 wave.verilator.fst
+-rw-r--r-- 1 user user   1197425 Nov 26 10:52 wave.zlib.fst
+-rw-r--r-- 1 user user    477741 Nov 26 10:52 wave.zlibc.fst
+{'file': '~/.cache/wavebench/data/picorv32/wave.vcd', 'format': 'VCD', 't_open_s': 0.002287299001181964, 't_total_s': 7.412415995997435, 'n_vars': 374, 'n_signals': 217, 'n_changes': 5486529, 'sha256': '90fffa50d7a86b8f9e54d049589a41de89ed500b04499305404045edc53a3371', 'T': 200435, 'B': 3625} skipped: 0
+{'file': '~/.cache/wavebench/data/picorv32/wave.lz4.fst', 'format': 'FST', 't_open_s': 0.0017047029978130013, 't_total_s': 7.559982177997881, 'n_vars': 374, 'n_signals': 217, 'n_changes': 5486529, 'sha256': '90fffa50d7a86b8f9e54d049589a41de89ed500b04499305404045edc53a3371', 'T': 200435, 'B': 3625} skipped: 0
+{'file': '~/.cache/wavebench/data/picorv32/wave.verilator.fst', 'format': 'FST', 't_open_s': 0.003071013998123817, 't_total_s': 7.528577364995726, 'n_vars': 374, 'n_signals': 217, 'n_changes': 5486529, 'sha256': '90fffa50d7a86b8f9e54d049589a41de89ed500b04499305404045edc53a3371', 'T': 200435, 'B': 3625} skipped: 0
+OK picorv32: T=200435 B=3625 信号=217 比特翻转总数=24481561 全程不变的比特=1574 sha=90fffa50d7a86b8f

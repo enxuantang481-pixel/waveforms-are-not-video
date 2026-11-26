@@ -1,0 +1,11 @@
+design,T,B,format,size_bytes,verified,note
+picorv32_t2201,2201,2891,vcd,1639101,,
+picorv32_t2201,2201,2891,fst-lz4,65976,,
+picorv32_t2201,2201,2891,fst-zlib-c,35799,,
+picorv32_t2201,2201,2891,bitpack-sm.zst19,45283,,含信号表
+picorv32_t2201,2201,2891,parquet 一列一个信号 (zstd),118127,True,2201 行 x 171 列；按位宽选整数类型；含信号表
+picorv32_t2201,2201,2891,parquet 一列一个信号 (snappy),146075,True,2201 行 x 171 列；按位宽选整数类型；含信号表
+picorv32_t2201,2201,2891,parquet 一列一个时间点 (zstd),1236396,True,170 行 x 2201 列；uint64；写入 0.1 秒；含信号表
+picorv32_t2201,2201,2891,parquet 一列一个时间点 (snappy),1303631,True,170 行 x 2201 列；uint64；写入 0.0 秒；含信号表
+picorv32_t2201,2201,2891,vcd2df 1.0 原包 -> to_parquet (snappy),2001249,不适用,289 行 x 2200 列；VCD 里有 374 个 $var，它保留 289 个（按短名字去重）；解析 0.2 秒；不是无损，不能和上面几行直接比
+picorv32_t2201,2201,2891,vcd2df 1.0 原包 -> to_parquet (zstd),1910985,不适用,289 行 x 2200 列；VCD 里有 374 个 $var，它保留 289 个（按短名字去重）；解析 0.2 秒；不是无损，不能和上面几行直接比

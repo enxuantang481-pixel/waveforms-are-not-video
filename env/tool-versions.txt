@@ -1,0 +1,9 @@
+# 系统工具版本（apt 装的）
+Verilator 5.020 2024-01-01 rev (Debian 5.020-1)
+Icarus Verilog version 12.0 (stable) ()
+GTKWave Analyzer v3.3.116 (w)1999-2023 BSI
+riscv64-unknown-elf-gcc (13.2.0-11ubuntu1+12) 13.2.0
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+ffmpeg version 9.1 Copyright (c) 2000-2026 the FFmpeg developers
+*** Zstandard CLI (64-bit) v1.5.7, by Yann Collet ***
+6.6.87.2-microsoft-standard-WSL2

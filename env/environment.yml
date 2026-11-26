@@ -1,0 +1,19 @@
+# waveform-codec-bench 的分析环境（WSL Ubuntu 24.04, linux-64）
+# 建法见 env/setup_wsl.sh；全部来自 conda-forge 和 PyPI，不需要 sudo。
+name: wavebench
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - ffmpeg          # 需要含 ffv1、libx264、libx264rgb 编码器的构建
+  - zstd
+  - pip
+  - pip:
+      - pywellen    # wellen 的官方 Python 绑定（PyPI 只有 Linux/macOS 轮子）
+      - numpy
+      - scipy
+      - pyarrow
+      - duckdb
+      - zstandard
+      - av          # PyAV：进程内调用 ffmpeg 库做解码计时
+      - matplotlib

@@ -1,0 +1,14 @@
+vcd                                        size=   80650108 ok=True enc= rsig=0.12694 rtime=0.37719 由仿真器直接写出，不单独计编码时间；
+vcd.zst3                                   size=    9076768 ok=True enc=0.2884 rsig=0.27165 rtime=0.52477 
+vcd.zst19                                  size=    2278199 ok=True enc=112.26 rsig=0.20414 rtime=0.46925 
+fst-verilator                              size=    2601820 ok=True enc= rsig=0.01846 rtime=1.15389 由仿真器直接写出，不单独计编码时间；
+fst-lz4                                    size=    2601604 ok=True enc=1.0390 rsig=0.01790 rtime=1.18890 
+fst-fastlz                                 size=    2263931 ok=True enc=1.0927 rsig=0.01787 rtime=1.38535 
+fst-zlib                                   size=    1464394 ok=True enc=1.2764 rsig=0.02072 rtime=1.17272 
+fst-lz4-c                                  size=    1290498 ok=True enc=1.1044 rsig=0.04085 rtime=1.25273 
+fst-zlib-c                                 size=     651737 ok=True enc=1.2866 rsig=0.03676 rtime=1.17895 
+bitpack-sm.zst19                           size=     463475 ok=True enc=5.2338 rsig=0.05936 rtime=0.05913 
+bitpack-tm.zst19                           size=    1461218 ok=True enc=49.167 rsig=0.07612 rtime=0.06876 
+bitpack-sm.zst3                            size=     725277 ok=True enc=0.1006 rsig=0.05897 rtime=0.05696 
+fst-lz4+libfst                             size=    2601604 ok=True enc=1.1361 rsig=0.02405 rtime=0.21070 
+fst-zlib-c+libfst                          size=     651737 ok=True enc=1.1979 rsig=0.04456 rtime=0.24805 

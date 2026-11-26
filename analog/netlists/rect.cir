@@ -1,0 +1,13 @@
+* 桥式整流加 RC 滤波，正弦输入。自己写的网表，只用内置二极管模型。
+.model dd d is=1e-14 rs=0.1 cjo=5p
+vin a b sin(0 12 50)
+d1 a p dd
+d2 b p dd
+d3 n a dd
+d4 n b dd
+c1 p n 470u
+rl p n 100
+rg n 0 1
+.options interp
+.tran 1u 0.3
+.end

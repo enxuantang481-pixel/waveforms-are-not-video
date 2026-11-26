@@ -1,0 +1,82 @@
+vcd                                        size=   80650108 ok=True enc= rsig=0.22846 rtime=0.55579 由仿真器直接写出，不单独计编码时间；
+vcd.zst3                                   size=    9076768 ok=True enc=0.7188 rsig=0.44549 rtime=0.86455 
+vcd.zst19                                  size=    2278199 ok=True enc=185.30 rsig=0.37436 rtime=0.80368 
+fst-verilator                              size=    2601820 ok=True enc= rsig=0.03083 rtime=2.16627 由仿真器直接写出，不单独计编码时间；
+fst-lz4                                    size=    2601604 ok=True enc=1.9836 rsig=0.03107 rtime=1.94482 
+fst-fastlz                                 size=    2263931 ok=True enc=1.4457 rsig=0.02853 rtime=2.06748 
+fst-zlib                                   size=    1464394 ok=True enc=2.5521 rsig=0.02825 rtime=1.75736 
+fst-lz4-c                                  size=    1290510 ok=True enc=1.5759 rsig=0.04221 rtime=1.77589 
+fst-zlib-c                                 size=     651738 ok=True enc=2.2700 rsig=0.05263 rtime=2.16962 
+bitpack-sm.zst19                           size=     463475 ok=True enc=9.7458 rsig=0.10081 rtime=0.11229 
+bitpack-tm.zst19                           size=    1461218 ok=True enc=101.52 rsig=0.17629 rtime=0.12537 
+bitpack-sm.zst3                            size=     725277 ok=True enc=0.1490 rsig=0.08295 rtime=0.07000 
+ffv1-frame-1bpp                            size=   75227183 ok=True enc=73.575 rsig=43.5407 rtime=0.12029 
+ffv1-frame-8bpp                            size=   88084704 ok=True enc=37.466 rsig=43.8918 rtime=0.18824 
+ffv1-strip-1bpp                            size=   16065695 ok=True enc=9.8745 rsig=0.60465 rtime=0.01114 
+ffv1-strip-8bpp                            size=   14100564 ok=True enc=5.2880 rsig=0.29230 rtime=0.01547 
+ffv1_coder1_context1-strip-1bpp            size=    7569958 ok=True enc=9.5644 rsig=1.77454 rtime=0.01517 
+x264-ultrafast-frame-1bpp                  size=   69364751 ok=True enc=53.659 rsig=66.2050 rtime=0.00816 
+x264-medium-frame-1bpp                     size=   39198114 ok=True enc=75.370 rsig=53.2334 rtime=0.00976 
+x264-medium-frame-8bpp                     size=   18919955 ok=True enc=43.341 rsig=42.7847 rtime=0.00421 
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in run_one
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 74, in _adaptive
+    t0 = time.perf_counter()
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in <lambda>
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 3658752 into shape (2382,1,1024)
+x264-ultrafast-strip-1bpp                  size=   38072097 ok=True enc=4.9468 rsig= rtime= 失败: ValueError('cannot reshape array of size 3658752 into shape (2382,1,1024)')
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in run_one
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 74, in _adaptive
+    t0 = time.perf_counter()
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in <lambda>
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 3658752 into shape (2382,1,1024)
+x264-medium-strip-1bpp                     size=   12915900 ok=True enc=6.0303 rsig= rtime= 失败: ValueError('cannot reshape array of size 3658752 into shape (2382,1,1024)')
+Traceback (most recent call last):
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in run_one
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 74, in _adaptive
+    t0 = time.perf_counter()
+        ^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/bench.py", line 121, in <lambda>
+    assert np.array_equal(np.asarray(r, dtype=np.uint8), m.column(t)), f"读法二结果错 周期{t}"
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 325, in read_signal
+    parts.append(_unband(a, W // STRIP_W, H)[px])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/2027/waveform-codec-bench/wavebench/formats.py", line 202, in _unband
+    return fr.reshape(H, K, STRIP_W).transpose(1, 0, 2).reshape(K * H, STRIP_W)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: cannot reshape array of size 457728 into shape (298,1,1024)
+x264-medium-strip-8bpp                     size=    6005808 ok=True enc=4.2898 rsig= rtime= 失败: ValueError('cannot reshape array of size 457728 into shape (298,1,1024)')
+x264-medium_g32-frame-1bpp                 size=   44456839 ok=True enc=87.179 rsig=46.8130 rtime=0.00630 
+parquet-wide-zstd3-rg65536                 size=    4353759 ok=True enc=2.1166 rsig=0.00659 rtime=0.02097 
+parquet-wide-zstd19-rg65536                size=    3139874 ok=True enc=5.6773 rsig=0.00789 rtime=0.02182 
+parquet-wide-zstd3-rg4096                  size=    8055536 ok=True enc=3.2221 rsig=0.03967 rtime=0.03146 
+parquet-long-zstd3-rg65536                 size=   26655900 ok=True enc=2.4229 rsig=0.02984 rtime=0.07836 
+parquet-long-zstd19-rg65536                size=   17936677 ok=True enc=21.827 rsig=0.02424 rtime=0.07565 
+duckdb-wide                                size=   13648217 ok=True enc=3.7568 rsig=0.06600 rtime=0.06415 
+duckdb-long                                size=   11813209 ok=True enc=2.0582 rsig=0.08415 rtime=0.07399 
