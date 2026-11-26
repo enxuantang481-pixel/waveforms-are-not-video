@@ -8,7 +8,7 @@ Can digital simulation waveforms be stored smaller, or read faster, as **video**
 
 - **Video loses on size everywhere.** On the three original waveforms, the best of 12 video layouts is still 1.8–3.7× the size of default FST, and most are 5–70×.
 - **Plain bit-packing plus zstd beats default FST** (0.06–0.66× its size) with no waveform knowledge at all, but beats the smallest FST mode only on SERV. Video does not even beat this.
-- **A wide Parquet table (one column per signal) is only faster at one thing**: reading all signals at one cycle, 4–12× faster than in-process libfst. Reading one signal over time is a tie at best, and the size gap to the smallest FST grows on long, quiet waveforms.
+- **A wide Parquet table (one column per signal) wins one-cycle reads**: reading all signals at one cycle is 7–15× faster than in-process libfst. Reading one signal over time depends on the design (about 2–4× faster on PicoRV32 and SERV, a tie on biRISC-V), and the size gap to the smallest FST grows on long, quiet waveforms.
 - **Table orientation decides everything**: the same content stored one column per time point (as in the earlier vcd2df work, arXiv 2505.06470) is about 10× larger than one column per signal.
 
 ## Try it on your own waveform
@@ -29,6 +29,7 @@ Everything runs in WSL / Ubuntu 24.04. Verilator, GTKWave and a RISC-V cross com
 bash env/setup_wsl.sh        # micromamba environment (~2 GB)
 bash scripts/run_all.sh      # fetch the cores, simulate, measure, plot (1–2 hours)
 bash scripts/rerun_idle.sh   # the idle-machine re-measurement
+bash scripts/check_pq_serv_x10.sh  # follow-up check of one timing (ISSUES.md item 19)
 python web/build_data.py     # regenerate the website data from results/
 ```
 
@@ -37,7 +38,7 @@ To view the site locally, open `web/index.html` or run `python -m http.server 87
 ## Limits
 
 - Three small RISC-V cores (2,381–9,728 bits), at most 2.6 million cycles, two-state only, one clock, one sample per cycle.
-- **Timings were measured on one laptop** (Intel Core Ultra 9 185H, WSL2). The first rounds ran while the machine was busy; an idle re-run with turbo boost off is in `results/idle/`. The website labels each waveform with the round its timings come from. Use them for ratios, not absolute performance.
+- **Timings were measured on one laptop** (Intel Core Ultra 9 185H, WSL2). The site and the results above use an idle re-run with turbo boost off (`results/idle/`); the earlier rounds on a busy machine are kept in `results/`. Use them for ratios, not absolute performance: turning turbo off was enough to change which format reads one signal faster on biRISC-V.
 - FST was not tuned (default block size, one way of reading a cycle with libfst).
 
 ## Repository

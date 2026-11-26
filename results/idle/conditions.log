@@ -25,3 +25,65 @@ loadavg: 3.27 3.47 2.93 3/491 53682
 model name	: Intel(R) Core(TM) Ultra 9 185H
 nproc: 22  mem: 7694 MB total, 4445 MB available
 disk(WSL): 394M in ~/.cache/wavebench
+## serv inproc  2026-11-26T11:48:34+01:00
+loadavg: 2.84 3.12 3.32 2/490 68841
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 4941 MB available
+disk(WSL): 989M in ~/.cache/wavebench
+## serv done  2026-11-26T11:49:27+01:00
+loadavg: 2.36 2.95 3.25 2/482 68897
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 4944 MB available
+disk(WSL): 317M in ~/.cache/wavebench
+biriscv matrix sha256 before=3030b08f235dcaf0b080a2b4b92b07546160b05838da05cfb9fb1f50dbca0eab after=3030b08f235dcaf0b080a2b4b92b07546160b05838da05cfb9fb1f50dbca0eab SAME
+## biriscv all  2026-11-26T11:50:58+01:00
+loadavg: 2.08 2.69 3.13 3/493 69122
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 4939 MB available
+disk(WSL): 644M in ~/.cache/wavebench
+## biriscv inproc  2026-11-26T12:16:29+01:00
+loadavg: 2.41 3.40 3.36 2/463 84907
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5699 MB available
+disk(WSL): 2.0G in ~/.cache/wavebench
+## biriscv done  2026-11-26T12:17:53+01:00
+loadavg: 2.18 3.08 3.24 2/471 85081
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5707 MB available
+disk(WSL): 317M in ~/.cache/wavebench
+## serv_x10 key  2026-11-26T12:27:30+01:00
+loadavg: 2.31 2.39 2.77 2/470 85930
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5604 MB available
+disk(WSL): 1.6G in ~/.cache/wavebench
+## serv_x10 inproc  2026-11-26T12:43:38+01:00
+loadavg: 2.76 3.39 3.27 2/469 93387
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5779 MB available
+disk(WSL): 1.7G in ~/.cache/wavebench
+## serv_x10 done  2026-11-26T12:51:35+01:00
+loadavg: 1.36 2.12 2.71 1/463 93884
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 6478 MB available
+disk(WSL): 317M in ~/.cache/wavebench
+## biriscv_x4 key  2026-11-26T12:56:22+01:00
+loadavg: 1.44 1.55 2.29 1/453 94355
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 6451 MB available
+disk(WSL): 1.9G in ~/.cache/wavebench
+## biriscv_x4 inproc  2026-11-26T13:05:52+01:00
+loadavg: 3.60 2.55 2.30 3/455 96493
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5074 MB available
+disk(WSL): 2.2G in ~/.cache/wavebench
+## biriscv_x4 done  2026-11-26T13:10:10+01:00
+loadavg: 2.05 2.35 2.29 2/445 96831
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5732 MB available
+disk(WSL): 317M in ~/.cache/wavebench
+## end  2026-11-26T13:10:10+01:00
+loadavg: 2.05 2.35 2.29 2/445 96841
+model name	: Intel(R) Core(TM) Ultra 9 185H
+nproc: 22  mem: 7694 MB total, 5730 MB available
+disk(WSL): 317M in ~/.cache/wavebench
+ALL_DONE

@@ -65,7 +65,7 @@ bash scripts/run_analog.sh   # 第二种数据：三个自写 SPICE 网表
 
 ## 数字来源
 
-`RESULTS.md` 里的每个数字都来自 `results/*.csv` 的某一行，由 `wavebench/bench.py` 或 `wavebench/analog.py` 实测写入；CSV 的 `command` 列是实际执行的编码命令。耗时是在一台同时跑着别的任务的笔记本上测的，只能看量级，全部待空闲时复测。
+`RESULTS.md` 里的每个数字都来自 `results/*.csv` 的某一行，由 `wavebench/bench.py` 或 `wavebench/analog.py` 实测写入；CSV 的 `command` 列是实际执行的编码命令。耗时都在一台笔记本上测：第一、二轮机器不空闲；空闲复测（关睿频）的结果在 `results/idle/`，网站和 `RESULTS.md` 汇总用的是复测数字。只能比较倍数，不能当绝对性能引用。
 
 ## 没验证的事项
 

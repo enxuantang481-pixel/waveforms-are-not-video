@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Method: Waveforms are not video</title>
-<link rel="stylesheet" href="assets/style.css?v=6">
+<link rel="stylesheet" href="assets/style.css?v=7">
 </head>
 <body>
 <header class="top">
@@ -72,7 +72,9 @@
       <div class="prose">
         <p>Laptop, Intel Core Ultra 9 185H, WSL2 Ubuntu 24.04 with about 7.5 GB of memory and 22 logical cores. Warm cache (files are read right after they are written).</p>
         <p><b>Rounds one and two (2026-11-25 to 26)</b>: the machine was running two other projects at the same time. The load at the start of each row is in the <code>loadavg</code> column and went above 8. Read these timings for order of magnitude only.</p>
-        <p><b>Idle re-measurement (2026-11-26)</b>: the other two projects were archived, and the user turned turbo boost off (Windows reports both current and maximum clock as 2300 MHz, the base clock). The five waveforms ran one after another, never in parallel; the three original waveforms were re-simulated and their bit matrices matched round one by SHA-256. During the run I was still building this site on the same machine (editing files, occasionally opening a browser preview); load is still logged per row. Waveforms re-measured so far: <b class="idle-count"></b>. Every waveform on the site is labelled with the round its timings come from.</p>
+        <p><b>Idle re-measurement (2026-11-26)</b>: the other two projects were archived, and the user turned turbo boost off (Windows reports both current and maximum clock as 2300 MHz, the base clock). The five waveforms ran one after another, never in parallel; all were re-simulated, the three original bit matrices matched round one by SHA-256, and the two long ones produced default FST files of exactly the same size as in round two (their matrix hashes were not recorded then). During the run I was still building this site on the same machine (editing files, occasionally opening a browser preview). The logged load average of 1 to 6 includes the benchmark's own threads (FFmpeg, zstd and pyarrow use several cores); it settled at 1.0 right after the run. Waveforms re-measured: <b class="idle-count"></b>. All timings on the site come from this re-measurement.</p>
+        <p><b>One follow-up check</b>: on SERV 2.6M, the first one-signal read of the wide Parquet table (zstd -19) took over 1 s, so the rule above measured only one signal, 3 times (median 0.33 s, against 0.03 s in round two). Re-measuring that format three more times in a row, with 15 reads each, gave 0.032 s every time, so the site uses the follow-up rows (<code>results/idle_check/</code>), together with the libfst reference measured in the same follow-up. Details in <code>ISSUES.md</code>, item 19.</p>
+        <p>With turbo boost off, most reads got slower in absolute terms (in-process libfst took 1.3 to 2.1× its round-two time on four waveforms, and about the same on SERV 2.6M), but not by the same factor for every format, so a few ratios moved between rounds. <code>RESULTS.md</code> lists which ones.</p>
       </div>
       <details>
         <summary>Conditions logged during the re-run (<code>results/idle/conditions.log</code>)</summary>
@@ -91,7 +93,7 @@
           <ul class="tight">
             <li>A dozen video layouts are all clearly larger than FST and much slower for one-signal reads, consistently across three designs and five lengths.</li>
             <li>For the same content, Parquet with one column per signal is about 10× smaller than one column per time point; both were verified bit for bit.</li>
-            <li>A wide Parquet table reads all signals at one cycle faster than libfst, by 4× or more on all five waveforms.</li>
+            <li>A wide Parquet table reads all signals at one cycle faster than libfst on all five waveforms, by <span class="pq-speed"></span> in the idle re-run (4× or more in the earlier busy rounds too).</li>
             <li>Every size comparison is between bit-identical contents.</li>
           </ul>
         </div>
@@ -102,7 +104,7 @@
             <li><b>At most 2.6 million cycles</b>, and that waveform goes quiet later on. Waveforms of tens of millions of cycles or gigabytes were not tested.</li>
             <li><b>Two-state only</b>, no x or z.</li>
             <li><b>One clock, one sample per cycle.</b> Multiple clock domains, glitches within a cycle and real timestamps are out of scope, and those are exactly where change-stream formats like FST shine.</li>
-            <li><b>FST was not tuned</b>: one way of reading a cycle with libfst, default block size. The 4–12× figure may be on the high side.</li>
+            <li><b>FST was not tuned</b>: one way of reading a cycle with libfst, default block size. The <span class="pq-speed"></span> figure may be on the high side.</li>
             <li><b>It does not show that a wide table is a good waveform format</b>: no hierarchy, no change stream, and writing requires expanding the whole waveform first.</li>
           </ul>
         </div>
@@ -136,7 +138,7 @@ python -m wavebench.cli my_wave.vcd --json out.json # save results</code></pre>
         <li><code>results/&lt;waveform&gt;.csv</code>: rounds one and two, one row per format with the encode command, size, verification, medians and minima of both reads, load and timestamp.</li>
         <li><code>results/idle/</code>: the idle re-measurement, same columns, plus the conditions log and per-design run logs.</li>
         <li><code>results/vcd2df_*.csv</code>: the table-orientation comparison.</li>
-        <li><code>RESULTS.md</code>、<code>ISSUES.md</code>: the full write-up and the 18 issues hit along the way.</li>
+        <li><code>RESULTS.md</code>、<code>ISSUES.md</code>: the full write-up and the 19 issues hit along the way.</li>
       </ul>
     </div>
   </section>
@@ -147,7 +149,7 @@ python -m wavebench.cli my_wave.vcd --json out.json # save results</code></pre>
     <p>Numbers are generated from <code>results/</code> by <code>web/build_data.py</code>. Code and raw data: <a href="https://github.com/enxuantang481-pixel/waveforms-are-not-video">GitHub repository</a> (MIT).</p>
   </div>
 </footer>
-<script src="data/bench.js?v=6"></script>
-<script src="assets/app.js?v=6"></script>
+<script src="data/bench.js?v=7"></script>
+<script src="assets/app.js?v=7"></script>
 </body>
 </html>

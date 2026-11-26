@@ -1,0 +1,15 @@
+/usr/lib/gcc/riscv64-unknown-elf/13.2.0/../../../riscv64-unknown-elf/bin/ld: warning: ~/.cache/wavebench/build/biriscv/prog.elf has a LOAD segment with RWX permissions
+[sim_main] cycles=262144
+sim_vcd wall=7.62s maxrss=4752KB
+[sim_main] cycles=262144
+sim_fst wall=11.01s maxrss=139220KB
+fst_lz4 wall=16.79s
+total 1354884
+-rw-r--r-- 1 user user          7 Nov 26 12:51 cycles.txt
+-rw-r--r-- 1 user user   19727672 Nov 26 12:52 wave.lz4.fst
+-rw-r--r-- 1 user user 1347928777 Nov 26 12:51 wave.vcd
+-rw-r--r-- 1 user user   19727978 Nov 26 12:51 wave.verilator.fst
+{'file': '~/.cache/wavebench/data/biriscv_x4/wave.vcd', 'format': 'VCD', 't_open_s': 0.0023273460028576665, 't_total_s': 79.98066556500271, 'n_vars': 1804, 'n_signals': 450, 'n_changes': 38153811, 'sha256': 'eb1a07597fabafea5851bbc79b06c8b677c179347f8bb81d3b8671a1bb7dc32e', 'T': 262144, 'B': 9728} skipped: 0
+{'file': '~/.cache/wavebench/data/biriscv_x4/wave.lz4.fst', 'format': 'FST', 't_open_s': 0.0033731280054780655, 't_total_s': 79.73450367199985, 'n_vars': 1804, 'n_signals': 450, 'n_changes': 38153811, 'sha256': 'eb1a07597fabafea5851bbc79b06c8b677c179347f8bb81d3b8671a1bb7dc32e', 'T': 262144, 'B': 9728} skipped: 0
+{'file': '~/.cache/wavebench/data/biriscv_x4/wave.verilator.fst', 'format': 'FST', 't_open_s': 0.004337895996286534, 't_total_s': 81.36828690999391, 'n_vars': 1804, 'n_signals': 450, 'n_changes': 38153811, 'sha256': 'eb1a07597fabafea5851bbc79b06c8b677c179347f8bb81d3b8671a1bb7dc32e', 'T': 262144, 'B': 9728} skipped: 0
+OK biriscv_x4: T=262144 B=9728 信号=450 比特翻转总数=232938554 全程不变的比特=4225 sha=eb1a07597fabafea

@@ -51,19 +51,19 @@ def scan_times(path, max_bytes):
         ch = list(c(v.signal))
         bad = next((x for x in ch if not isinstance(x[1], int)), None)
         if bad is not None:
-            raise Refuse(f"不支持：信号 {name} 在时刻 {bad[0]} 的值是 {bad[1]!r}（有 x 或 z）。本工具只支持两态波形。")
+            raise Refuse(f"Not supported: signal {name} has value {bad[1]!r} at time {bad[0]} (x or z). This tool handles two-state waveforms only.")
         t = np.unique(np.fromiter((x[0] for x in ch), dtype=np.int64, count=len(ch)))
         uni = t if uni is None else np.union1d(uni, t)
     if uni is None or len(uni) == 0:
-        raise Refuse("波形里没有可用的信号。")
+        raise Refuse("No usable signals in the waveform.")
     t0 = int(uni[0])
     step = int(np.gcd.reduce(np.diff(uni))) if len(uni) > 1 else 1
     T = (int(uni[-1]) - t0) // step + 1
     need = nbits * math.ceil(T / 8)
     if need > max_bytes:
-        raise Refuse(f"不支持：采样时刻不在一个够粗的等间隔网格上（最小间隔 {step}，"
-                     f"会展开成 {T:,} 个时刻 × {nbits:,} 比特 ≈ {need / 1e9:.1f} GB 的矩阵，上限 {max_bytes / 1e9:.1f} GB）。"
-                     "可以用 --max-gb 放宽上限，但通常说明这是带真实时间戳或毛刺的波形，不适合按周期展开比较。")
+        raise Refuse(f"Not supported: the change times do not sit on a coarse, evenly spaced grid (grid step {step}; "
+                     f"that would expand to {T:,} time points x {nbits:,} bits = {need / 1e9:.1f} GB, limit {max_bytes / 1e9:.1f} GB). "
+                     "--max-gb raises the limit, but this usually means real timestamps or glitches, which a per-cycle comparison does not fit.")
     return t0, step, T, skipped
 
 
@@ -110,25 +110,25 @@ def fmt_s(s):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(prog="python -m wavebench.cli", description="比较几种波形存法的体积和读取耗时（两态、等间隔采样的 VCD/FST）")
-    ap.add_argument("wave", help="输入的 .vcd 或 .fst 文件")
-    ap.add_argument("--all", action="store_true", help="除默认 5 种外，再测 VCD、VCD+zstd、Parquet 长表、DuckDB、x264")
-    ap.add_argument("--json", help="把结果另存成 JSON")
-    ap.add_argument("--keep", action="store_true", help="保留中间文件")
-    ap.add_argument("--max-gb", type=float, default=2.0, help="比特矩阵的内存上限（默认 2 GB）")
+    ap = argparse.ArgumentParser(prog="python -m wavebench.cli", description="Compare size and read time of several storage formats on your own waveform (two-state VCD/FST, evenly spaced samples).")
+    ap.add_argument("wave", help="input .vcd or .fst file")
+    ap.add_argument("--all", action="store_true", help="besides the 5 default formats, also VCD, VCD+zstd, Parquet long, DuckDB wide, x264")
+    ap.add_argument("--json", help="also write the results as JSON")
+    ap.add_argument("--keep", action="store_true", help="keep the intermediate files")
+    ap.add_argument("--max-gb", type=float, default=2.0, help="memory limit for the bit matrix in GB (default 2)")
     a = ap.parse_args(argv)
 
     src = Path(a.wave).resolve()
     if not src.exists():
-        raise Refuse(f"找不到文件 {src}")
+        raise Refuse(f"File not found: {src}")
     kind = src.suffix.lower()
     if kind not in (".vcd", ".fst"):
-        raise Refuse("只接受 .vcd 或 .fst")
+        raise Refuse("Only .vcd or .fst files are accepted.")
     for tool in ("vcd2fst", "fst2vcd"):
         if shutil.which(tool) is None:
-            raise Refuse(f"找不到 {tool}（GTKWave 自带）")
+            raise Refuse(f"{tool} not found (it ships with GTKWave).")
     if not (C.WORK / "bin" / "libfstq.so").exists():
-        raise Refuse("找不到 libfstq.so，先运行 bash scripts/build_tools.sh")
+        raise Refuse("libfstq.so not found; run bash scripts/build_tools.sh first.")
 
     design = f"cli-{src.stem}-{os.getpid()}"
     d = data_dir(design)
@@ -137,48 +137,49 @@ def main(argv=None):
         t_start = time.perf_counter()
         vcd = d / "wave.vcd"
         if kind == ".vcd":
+            print("[1/4] Using the VCD as is", flush=True)
             os.symlink(src, vcd)
         else:
-            print(f"[1/4] FST -> VCD（fst2vcd）…", flush=True)
+            print("[1/4] FST -> VCD (fst2vcd)...", flush=True)
             subprocess.run(["fst2vcd", "-f", str(src), "-o", str(vcd)], check=True, stdout=subprocess.DEVNULL)
-        print("[2/4] 检查两态和采样网格…", flush=True)
+        print("[2/4] Checking two-state values and the sample grid...", flush=True)
         t0, step, T, skipped = scan_times(vcd, int(a.max_gb * 1e9))
         C.TIME.update(t0=t0, step=step)
         from .to_matrix import read_wave
         bits, T, signals, st = read_wave(vcd, T)
         m = Matrix(bits, T, signals)
-        print(f"      {m.T:,} 个采样时刻（t0={t0}，间隔 {step}），{len(m.signals):,} 个信号，{m.B:,} 比特"
-              + (f"；跳过 {len(skipped)} 个实数信号" if skipped else ""), flush=True)
+        print(f"      {m.T:,} time points (t0={t0}, step {step}), {len(m.signals):,} signals, {m.B:,} bits"
+              + (f"; skipped {len(skipped)} real-valued signals" if skipped else ""), flush=True)
         sigs, times = pick(m)
         fmts = FORMATS_DEFAULT() + (FORMATS_EXTRA() if a.all else [])
-        print(f"[3/4] 写出、逐位核对、计时 {len(fmts)} 种存法（每种几秒到几分钟）…", flush=True)
+        print(f"[3/4] Writing, verifying bit for bit and timing {len(fmts)} formats (seconds to minutes each)...", flush=True)
         col = Collect()
         for f in fmts:
             run_one(design, m, f, sigs, times, col, col)
         rows = col.rows
         ref = next((r for r in rows if r["format"] == "fst-lz4+inproc" and r.get("verified")), None)
-        print("[4/4] 结果（倍数相对 FST 默认档 + 进程内 libfst；小于 1 表示更小或更快）\n")
-        head = f"{'存法':<30} {'体积':>11} {'×FST':>7} {'取一个时刻':>11} {'×':>7} {'取一个信号':>11} {'×':>7}  核对"
+        print("[4/4] Results (x = relative to default FST read with in-process libfst; below 1 means smaller or faster)\n")
+        head = f"{'format':<30} {'size':>11} {'x':>7} {'one cycle':>11} {'x':>7} {'one signal':>11} {'x':>7}  verified"
         print(head)
         print("-" * 104)
         for r in rows:
             sz = r.get("size_bytes") or 0
             rel = lambda k: (f"{float(r[k]) / float(ref[k]):.3g}" if ref and r.get(k) not in ("", None) and ref.get(k) else "-")  # noqa: E731
             szr = f"{sz / ref['size_bytes']:.3g}" if ref and sz else "-"
-            ok = "通过" if r.get("verified") else "失败 " + r.get("note", "")[:40]
+            ok = "yes" if r.get("verified") else "FAILED " + r.get("note", "")[:40]
             print(f"{r['format']:<30} {fmt_bytes(sz) if sz else '-':>11} {szr:>7} {fmt_s(r.get('rtime_s_med')):>11} {rel('rtime_s_med'):>7} "
                   f"{fmt_s(r.get('rsig_s_med')):>11} {rel('rsig_s_med'):>7}  {ok}")
-        print(f"\n输入：{src.name}，{fmt_bytes(src.stat().st_size)}。总用时 {time.perf_counter() - t_start:.0f} 秒。"
-              f" 机器负载 {os.getloadavg()[0]:.2f}（负载高时耗时只能看量级）。")
+        print(f"\nInput: {src.name}, {fmt_bytes(src.stat().st_size)}. Total time {time.perf_counter() - t_start:.0f} s."
+              f" Load average {os.getloadavg()[0]:.2f} (on a busy machine, read the timings as orders of magnitude only).")
         if a.json:
             out = dict(input=str(src), T=m.T, B=m.B, n_signals=len(m.signals), t0=t0, step=step,
                        skipped_real=skipped, loadavg=os.getloadavg(), rows=rows)
             Path(a.json).write_text(json.dumps(out, ensure_ascii=False, indent=1, default=str), encoding="utf-8")
-            print(f"已写出 {a.json}")
+            print(f"Wrote {a.json}")
         return 0 if all(r.get("verified") for r in rows) else 1
     finally:
         if a.keep:
-            print(f"中间文件保留在 {d} 和 {out_dir(design)}")
+            print(f"Intermediate files kept in {d} and {out_dir(design)}")
         else:
             shutil.rmtree(d, ignore_errors=True)
             shutil.rmtree(C.WORK / "out" / design, ignore_errors=True)

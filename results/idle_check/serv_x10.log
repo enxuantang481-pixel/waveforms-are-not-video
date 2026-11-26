@@ -1,0 +1,9 @@
+parquet-wide-zstd19-rg65536                size=   20157611 ok=True enc=45.623 rsig=0.03246 rtime=0.02527 
+parquet-wide-zstd3-rg65536                 size=   30595329 ok=True enc=26.952 rsig=0.03494 rtime=0.02555 
+fst-lz4+inproc                             size=   15571018 ok=True enc=5.3657 rsig=0.11832 rtime=0.24289 
+parquet-wide-zstd19-rg65536                size=   20157611 ok=True enc=42.905 rsig=0.03214 rtime=0.02432 
+parquet-wide-zstd3-rg65536                 size=   30595329 ok=True enc=26.861 rsig=0.03033 rtime=0.02644 
+fst-lz4+inproc                             size=   15571018 ok=True enc=5.9488 rsig=0.12856 rtime=0.25030 
+parquet-wide-zstd19-rg65536                size=   20157611 ok=True enc=47.660 rsig=0.03176 rtime=0.02437 
+parquet-wide-zstd3-rg65536                 size=   30595329 ok=True enc=28.269 rsig=0.03030 rtime=0.02362 
+fst-lz4+inproc                             size=   15571018 ok=True enc=5.8031 rsig=0.12083 rtime=0.23146 

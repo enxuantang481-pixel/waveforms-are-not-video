@@ -23,11 +23,13 @@ Sizes are multiples of the default FST file. Read times are multiples of libfst 
 
 | Waveform | Smallest FST | Bit-pack + zstd | Parquet wide: size / one signal / one cycle | FFV1 strip: size / one cycle |
 |---|---|---|---|---|
-| PicoRV32, 200k cycles | 0.28 | 0.41 | 1.69 / 0.78 / 0.08 | 13.8 / 0.07 |
-| SERV, 262k cycles | 0.25 | 0.18 | 1.21 / 0.57 / 0.09 | 5.4 / 0.10 |
-| SERV, 2.6M cycles | 0.08 | 0.06 | 1.29 / 0.29 / 0.13 | 6.3 / 0.04 |
-| biRISC-V, 66k cycles | 0.55 | 0.65 | 0.80 / 1.38 / 0.15 | 5.9 / 0.08 |
-| biRISC-V, 262k cycles | 0.54 | 0.66 | 0.80 / 1.38 / 0.25 | 6.3 / 0.06 |
+| PicoRV32, 200k cycles | 0.28 | 0.41 | 1.69 / 0.52 / 0.07 | 13.8 / 0.02 |
+| SERV, 262k cycles | 0.25 | 0.18 | 1.21 / 0.53 / 0.11 | 5.4 / 0.03 |
+| SERV, 2.6M cycles | 0.08 | 0.06 | 1.29 / 0.26 / 0.11 | 6.3 / 0.03 |
+| biRISC-V, 66k cycles | 0.55 | 0.65 | 0.80 / 0.97 / 0.15 | 5.9 / 0.03 |
+| biRISC-V, 262k cycles | 0.54 | 0.66 | 0.80 / 0.92 / 0.15 | 6.3 / 0.04 |
+
+(Timings from the idle re-run with turbo boost off.)
 
 ![File size versus read time, PicoRV32](../results/picorv32_size_vs_read.png)
 
@@ -39,17 +41,17 @@ Sizes are multiples of the default FST file. Read times are multiples of libfst 
 
 **Reordering signals helps, but not enough.** Placing signals with similar values next to each other shrinks FFV1 by up to half. It is still roughly 3 to 9 times the size of FST.
 
-**The one thing video wins at is jumping to a point in time.** Every FFV1 frame is coded independently, so seeking to a frame and decoding it takes about 10 ms. That is a tenth to a twentieth of the FST time, and it does not grow as the waveform gets longer. FST has to unpack a whole data block to answer the same query. If your workload is random snapshots of every signal across a very long waveform, this is a real advantage. It costs you at least five times the disk.
+**The one thing video wins at is jumping to a point in time.** Every FFV1 frame is coded independently, so seeking to a frame and decoding it takes 5 to 10 ms. That is a twenty-fifth to a fortieth of the FST time, and it does not grow as the waveform gets longer. FST has to unpack a whole data block to answer the same query. If your workload is random snapshots of every signal across a very long waveform, this is a real advantage. It costs you at least five times the disk.
 
 ## Two side findings
 
-**A wide Parquet table does better than I expected.** With one column per signal, its size is in the same range as default FST (0.8 to 2 times), and reading all signals at one cycle is 4 to 12 times faster than FST. Reading one signal across all cycles is roughly a tie; which one is faster depends on the design. It does not beat the smallest FST mode, and the gap widens as the waveform gets quieter.
+**A wide Parquet table does better than I expected.** With one column per signal, its size is in the same range as default FST (0.8 to 2 times), and reading all signals at one cycle is 7 to 15 times faster than FST. Reading one signal across all cycles depends on the design: about twice as fast or more on PicoRV32 and SERV, a tie on biRISC-V. It does not beat the smallest FST mode, and the gap widens as the waveform gets quieter.
 
 **Table orientation decides everything.** The earlier vcd2df work (arXiv 2505.06470) stored waveforms as Parquet and found the result larger than VCD. I reproduced its orientation, one column per time point. With the same content and the same compression, that file is 10 times the size of the one-column-per-signal file. A columnar format needs long columns to pay off, so time belongs on the rows.
 
 ## Limits of these results
 
-Three small RISC-V cores only. At most 2.6 million cycles. Two-state only, with no x or z. One clock, one sample per cycle. All timings were taken on a laptop that was running other jobs, so they are good for ratios, not for absolute performance. FST was not tuned; in particular I did not change its block size. Real project waveforms are larger, contain x, and span several clock domains, and I have not checked whether the conclusions hold there.
+Three small RISC-V cores only. At most 2.6 million cycles. Two-state only, with no x or z. One clock, one sample per cycle. All timings were taken on one laptop (idle, turbo boost off), so they are good for ratios, not for absolute performance; turning turbo off was enough to flip which format reads one signal faster on one design. FST was not tuned; in particular I did not change its block size. Real project waveforms are larger, contain x, and span several clock domains, and I have not checked whether the conclusions hold there.
 
 What this supports is narrower: within that range, "waveform as video" does not work, and not by a small margin. If what you need is random snapshots by time, a Parquet table with one column per signal gets you most of that speed for far less disk than video.
 

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Waveforms are not video</title>
 <meta name="description" content="Can digital simulation waveforms be stored smaller or read faster as video, as tables, or with plain compression, than in FST? Measurements on three open-source RISC-V cores.">
-<link rel="stylesheet" href="assets/style.css?v=6">
+<link rel="stylesheet" href="assets/style.css?v=7">
 </head>
 <body>
 <header class="top">
@@ -65,7 +65,7 @@
           <p id="f2-text"></p>
         </article>
         <article class="finding gain">
-          <h3>A wide Parquet table is only faster at one-cycle reads</h3>
+          <h3>A wide Parquet table wins one-cycle reads; one-signal reads depend on the design</h3>
           <div class="fig" id="f3-fig"></div>
           <p class="figlabel">speed-up over libfst, all signals at one cycle (five waveforms)</p>
           <p id="f3-text"></p>
@@ -140,7 +140,7 @@ python -m wavebench.cli my_wave.fst --all --json out.json</code></pre>
     <p>Design references: Anthropic's frontend-design skill (Apache-2.0) and Claude Code's dataviz guidance; see <a href="https://github.com/enxuantang481-pixel/waveforms-are-not-video/blob/main/web/DESIGN_NOTES.md">design notes</a>. No third-party code is used.</p>
   </div>
 </footer>
-<script src="data/bench.js?v=6"></script>
-<script src="assets/app.js?v=6"></script>
+<script src="data/bench.js?v=7"></script>
+<script src="assets/app.js?v=7"></script>
 </body>
 </html>

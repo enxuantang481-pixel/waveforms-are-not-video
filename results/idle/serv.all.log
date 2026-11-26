@@ -17,3 +17,17 @@ ffv1-frame-8bpp                            size=   88084704 ok=True enc=25.227 r
 ffv1-strip-1bpp                            size=   16065695 ok=True enc=4.9824 rsig=0.29480 rtime=0.00709 
 ffv1-strip-8bpp                            size=   14100564 ok=True enc=3.2908 rsig=0.13088 rtime=0.00462 
 ffv1_coder1_context1-strip-1bpp            size=    7569958 ok=True enc=5.0420 rsig=1.01573 rtime=0.01031 
+x264-ultrafast-frame-1bpp                  size=   69364751 ok=True enc=31.247 rsig=26.5389 rtime=0.00396 
+x264-medium-frame-1bpp                     size=   39198114 ok=True enc=57.555 rsig=26.5553 rtime=0.00852 
+x264-medium-frame-8bpp                     size=   18919955 ok=True enc=31.749 rsig=26.4310 rtime=0.00358 
+x264-ultrafast-strip-1bpp                  size=   38072097 ok=True enc=5.2101 rsig=0.26640 rtime=0.27049 
+x264-medium-strip-1bpp                     size=   12915900 ok=True enc=5.6835 rsig=0.38573 rtime=0.45202 
+x264-medium-strip-8bpp                     size=    6005808 ok=True enc=3.1492 rsig=0.30309 rtime=0.03731 
+x264-medium_g32-frame-1bpp                 size=   44456839 ok=True enc=55.920 rsig=27.1748 rtime=0.00596 
+parquet-wide-zstd3-rg65536                 size=    4353759 ok=True enc=2.1992 rsig=0.00631 rtime=0.01739 
+parquet-wide-zstd19-rg65536                size=    3139874 ok=True enc=5.2556 rsig=0.00603 rtime=0.01773 
+parquet-wide-zstd3-rg4096                  size=    8055536 ok=True enc=2.9041 rsig=0.03341 rtime=0.02304 
+parquet-long-zstd3-rg65536                 size=   26655900 ok=True enc=2.0581 rsig=0.01604 rtime=0.03783 
+parquet-long-zstd19-rg65536                size=   17936677 ok=True enc=10.464 rsig=0.01497 rtime=0.03266 
+duckdb-wide                                size=   13648217 ok=True enc=2.6411 rsig=0.05750 rtime=0.05192 
+duckdb-long                                size=   11288921 ok=True enc=1.6642 rsig=0.05236 rtime=0.04864 

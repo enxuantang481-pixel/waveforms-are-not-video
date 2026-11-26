@@ -1,0 +1,26 @@
+/usr/lib/gcc/riscv64-unknown-elf/13.2.0/../../../riscv64-unknown-elf/bin/ld: warning: ~/.cache/wavebench/build/biriscv/prog.elf has a LOAD segment with RWX permissions
+[sim_main] cycles=65536
+sim_vcd wall=1.47s maxrss=4752KB
+[sim_main] cycles=65536
+sim_fst wall=3.50s maxrss=138492KB
+fst_lz4 wall=4.30s
+fst_fastlz wall=4.36s
+fst_zlib wall=4.68s
+fst_lz4_c wall=4.57s
+fst_zlib_c wall=4.86s
+total 434192
+-rw-r--r-- 1 user user  77070464 Nov 25 16:29 bits_sm.npy
+-rw-r--r-- 1 user user         6 Nov 26 11:49 cycles.txt
+-rw-r--r-- 1 user user      1096 Nov 25 16:29 matrix_stats.json
+-rw-r--r-- 1 user user    110113 Nov 25 16:29 signals.json
+-rw-r--r-- 1 user user   4995116 Nov 26 11:49 wave.fastlz.fst
+-rw-r--r-- 1 user user   5138258 Nov 26 11:49 wave.lz4.fst
+-rw-r--r-- 1 user user   2962828 Nov 26 11:49 wave.lz4c.fst
+-rw-r--r-- 1 user user 342886977 Nov 26 11:49 wave.vcd
+-rw-r--r-- 1 user user   5138564 Nov 26 11:49 wave.verilator.fst
+-rw-r--r-- 1 user user   3474872 Nov 26 11:49 wave.zlib.fst
+-rw-r--r-- 1 user user   2803508 Nov 26 11:49 wave.zlibc.fst
+{'file': '~/.cache/wavebench/data/biriscv/wave.vcd', 'format': 'VCD', 't_open_s': 0.0019885209985659458, 't_total_s': 18.823929343998316, 'n_vars': 1804, 'n_signals': 440, 'n_changes': 9710789, 'sha256': '0fd6c7affe75e5008982a2e2b80ae28e99eee0ecabc19a16b23e5043da36c57a', 'T': 65536, 'B': 9408} skipped: 0
+{'file': '~/.cache/wavebench/data/biriscv/wave.lz4.fst', 'format': 'FST', 't_open_s': 0.0014974020014051348, 't_total_s': 19.075510640002904, 'n_vars': 1804, 'n_signals': 440, 'n_changes': 9710789, 'sha256': '0fd6c7affe75e5008982a2e2b80ae28e99eee0ecabc19a16b23e5043da36c57a', 'T': 65536, 'B': 9408} skipped: 0
+{'file': '~/.cache/wavebench/data/biriscv/wave.verilator.fst', 'format': 'FST', 't_open_s': 0.001561956996738445, 't_total_s': 19.257220163002785, 'n_vars': 1804, 'n_signals': 440, 'n_changes': 9710789, 'sha256': '0fd6c7affe75e5008982a2e2b80ae28e99eee0ecabc19a16b23e5043da36c57a', 'T': 65536, 'B': 9408} skipped: 0
+OK biriscv: T=65536 B=9408 信号=440 比特翻转总数=58899542 全程不变的比特=3991 sha=0fd6c7affe75e500

@@ -135,8 +135,9 @@ def run_one(design, m, f, sigs, times, writer, fh):
         traceback.print_exc()
     writer.writerow(row)
     fh.flush()
+    g = lambda k: f"{row[k]:.5g}" if isinstance(row.get(k), float) else str(row.get(k, ""))  # noqa: E731  不能截字符串：8.6e-05 会被截成 8.6
     print(f"{f.name:42s} size={row.get('size_bytes', '?'):>11} ok={row.get('verified')} "
-          f"enc={row.get('enc_s_med', '')!s:.6} rsig={row.get('rsig_s_med', '')!s:.7} rtime={row.get('rtime_s_med', '')!s:.7} {row['note'][:120]}", flush=True)
+          f"enc={g('enc_s_med')} rsig={g('rsig_s_med')} rtime={g('rtime_s_med')} {row['note'][:120]}", flush=True)
 
 
 def main(design, which, only=None):

@@ -1,0 +1,14 @@
+[sim_main] cycles=2621440
+sim_vcd wall=6.17s maxrss=4400KB
+[sim_main] cycles=2621440
+sim_fst wall=6.15s maxrss=152328KB
+fst_lz4 wall=5.69s
+total 489896
+-rw-r--r-- 1 user user         8 Nov 26 13:12 cycles.txt
+-rw-r--r-- 1 user user  15571018 Nov 26 13:12 wave.lz4.fst
+-rw-r--r-- 1 user user 470496742 Nov 26 13:12 wave.vcd
+-rw-r--r-- 1 user user  15571234 Nov 26 13:12 wave.verilator.fst
+{'file': '~/.cache/wavebench/data/serv_x10/wave.vcd', 'format': 'VCD', 't_open_s': 0.0012025699979858473, 't_total_s': 166.32988709699566, 'n_vars': 834, 'n_signals': 223, 'n_changes': 36635611, 'sha256': '1085fbd1bfd9e829bfe869001fa23174d7b78781a4d21986ca5421bc37df9347', 'T': 2621440, 'B': 2381} skipped: 0
+{'file': '~/.cache/wavebench/data/serv_x10/wave.lz4.fst', 'format': 'FST', 't_open_s': 0.02912019000359578, 't_total_s': 179.38454154800274, 'n_vars': 834, 'n_signals': 223, 'n_changes': 36635611, 'sha256': '1085fbd1bfd9e829bfe869001fa23174d7b78781a4d21986ca5421bc37df9347', 'T': 2621440, 'B': 2381} skipped: 0
+{'file': '~/.cache/wavebench/data/serv_x10/wave.verilator.fst', 'format': 'FST', 't_open_s': 0.3921343690017238, 't_total_s': 168.8946757119993, 'n_vars': 834, 'n_signals': 223, 'n_changes': 36635611, 'sha256': '1085fbd1bfd9e829bfe869001fa23174d7b78781a4d21986ca5421bc37df9347', 'T': 2621440, 'B': 2381} skipped: 0
+OK serv_x10: T=2621440 B=2381 信号=223 比特翻转总数=75601517 全程不变的比特=1701 sha=1085fbd1bfd9e829

@@ -1,0 +1,2 @@
+fst-lz4+inproc                             size=    2601604 ok=True enc=1.3079 rsig=0.01135 rtime=0.16674 
+fst-zlib-c+inproc                          size=     651737 ok=True enc=1.2703 rsig=0.02323 rtime=0.20707 
