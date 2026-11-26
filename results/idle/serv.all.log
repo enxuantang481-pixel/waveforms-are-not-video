@@ -12,3 +12,8 @@ bitpack-tm.zst19                           size=    1461218 ok=True enc=49.167 r
 bitpack-sm.zst3                            size=     725277 ok=True enc=0.1006 rsig=0.05897 rtime=0.05696 
 fst-lz4+libfst                             size=    2601604 ok=True enc=1.1361 rsig=0.02405 rtime=0.21070 
 fst-zlib-c+libfst                          size=     651737 ok=True enc=1.1979 rsig=0.04456 rtime=0.24805 
+ffv1-frame-1bpp                            size=   75227183 ok=True enc=58.764 rsig=20.9402 rtime=0.10724 
+ffv1-frame-8bpp                            size=   88084704 ok=True enc=25.227 rsig=24.9683 rtime=0.10335 
+ffv1-strip-1bpp                            size=   16065695 ok=True enc=4.9824 rsig=0.29480 rtime=0.00709 
+ffv1-strip-8bpp                            size=   14100564 ok=True enc=3.2908 rsig=0.13088 rtime=0.00462 
+ffv1_coder1_context1-strip-1bpp            size=    7569958 ok=True enc=5.0420 rsig=1.01573 rtime=0.01031 
